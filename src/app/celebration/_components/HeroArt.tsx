@@ -8,6 +8,10 @@ export default function HeroArt({ artworkUrl }: { artworkUrl?: string | null }) 
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_18%,_#1d3a6b_0%,_#0b1f3a_70%)]" />
+      {/* Soft light-blue "painted" glows around the portrait; navy stays dominant. */}
+      <div className="absolute left-[-18%] top-[6%] h-[300px] w-[70%] rounded-full bg-[radial-gradient(closest-side,_rgba(122,162,214,0.38),_rgba(122,162,214,0.12)_55%,_transparent)] blur-md" />
+      <div className="absolute right-[-18%] top-[14%] h-[320px] w-[72%] rounded-full bg-[radial-gradient(closest-side,_rgba(140,178,226,0.32),_rgba(140,178,226,0.1)_55%,_transparent)] blur-md" />
+      <div className="absolute left-[18%] top-[24%] h-[180px] w-[64%] rounded-full bg-[radial-gradient(closest-side,_rgba(176,204,238,0.18),_transparent)] blur-lg" />
       {artworkUrl ? (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}

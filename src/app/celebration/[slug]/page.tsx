@@ -6,6 +6,7 @@ import ShareButtons from "../_components/ShareButtons";
 import MemorialSection from "../_components/MemorialSection";
 import Flourish from "../_components/Flourish";
 import HeroArt from "../_components/HeroArt";
+import EventDetails from "../_components/EventDetails";
 import { loadPublicEvent } from "@/lib/celebration/load";
 import { shareMessage } from "@/lib/celebration/format";
 
@@ -52,17 +53,18 @@ export default async function CelebrationPage({ params }: Props) {
 
         <div className="mx-auto max-w-2xl px-4">
           {event.welcome_message && (
-            <div className="m-card border-gold-400/80 bg-ivory p-6 shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:p-8">
+            <div className="m-card border-gold-400/80 bg-ivory px-5 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:p-8">
               <Flourish />
-              <p className="my-5 whitespace-pre-line text-center font-display text-[1.25rem] leading-relaxed text-charcoal">
+              <p className="mb-0.5 mt-2.5 whitespace-pre-line text-center font-display text-[16px] leading-[1.5] text-charcoal sm:my-5 sm:text-[1.2rem]">
                 {event.welcome_message}
               </p>
-              <Flourish />
+              {/* Second ornament only on wider screens, to keep the phone hero compact. */}
+              <Flourish className="hidden sm:flex" />
             </div>
           )}
 
-          <div className="mt-8 text-center">
-            <a href="#food-list" className="m-btn-hero min-h-[64px] w-full whitespace-nowrap px-5 font-display text-[17px] tracking-[0.04em] sm:w-auto sm:px-10 sm:text-lg sm:tracking-[0.08em]">
+          <div className="mt-4 text-center">
+            <a href="#food-list" className="m-btn-hero min-h-[60px] w-full whitespace-nowrap px-5 font-display text-[17px] tracking-[0.04em] sm:w-auto sm:px-10 sm:text-lg sm:tracking-[0.08em]">
               <svg width="20" height="22" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.8" className="shrink-0 text-gold-400" aria-hidden="true">
                 <path d="M4 1v7a2.5 2.5 0 0 0 5 0V1M6.5 1v20M15 21V1c-2.5 1.5-3.5 4-3.5 7v5H15" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -70,7 +72,7 @@ export default async function CelebrationPage({ params }: Props) {
               VIEW FOOD &amp; SUPPLY LIST
               <span aria-hidden="true" className="hidden text-gold-400 sm:inline">›</span>
             </a>
-            <div className="mx-auto mt-5 flex items-center justify-center gap-3 text-gold-400" aria-hidden="true">
+            <div className="mx-auto mt-4 flex items-center justify-center gap-3 text-gold-400" aria-hidden="true">
               <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold-400" />
               <span className="text-xs">◆</span>
               <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold-400" />
@@ -79,6 +81,8 @@ export default async function CelebrationPage({ params }: Props) {
               Please select an item that is still needed so we can provide a variety of food for everyone.
             </p>
           </div>
+
+          <EventDetails event={event} />
         </div>
       </section>
 
