@@ -1,0 +1,36 @@
+{
+  "name": "celebration-of-life",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:db": "vitest run src/lib/celebration/db.integration.test.ts",
+    "test:e2e": "node e2e/guest.mjs && node e2e/admin.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.0",
+    "next": "^16.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "autoprefixer": "^10.5.4",
+    "eslint": "^9",
+    "eslint-config-next": "^16.3.0",
+    "playwright": "^1.56.0",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-charcoal;
+}
+
+/* ---------------------------------------------------------------------
+ * Celebration of Life component classes ("m" = memorial). Sized for phones
+ * and older eyes first: 17px base text, 52px+ touch targets. Inside
+ * @layer components so one-off utilities (bg-*, min-h-*) on an element
+ * can still override them.
+ * ------------------------------------------------------------------- */
+
+@layer components {
+  .m-page {
+    @apply min-h-screen bg-cream text-[17px] leading-relaxed text-charcoal antialiased;
+  }
+
+  .m-card {
+    @apply rounded-3xl border border-cream-300 bg-white shadow-[0_2px_14px_rgba(70,58,35,0.06)];
+  }
+
+  .m-btn {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-base font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-500 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .m-btn-primary {
+    @apply m-btn bg-sage-700 text-white hover:bg-sage-800;
+  }
+
+  .m-btn-gold {
+    @apply m-btn bg-gold-700 text-white hover:bg-gold-600;
+  }
+
+  .m-btn-outline {
+    @apply m-btn border-2 border-sage-700 bg-white text-sage-800 hover:bg-sage-50;
+  }
+
+  .m-btn-quiet {
+    @apply m-btn bg-cream-200 text-charcoal hover:bg-cream-300;
+  }
+
+  .m-btn-danger {
+    @apply m-btn border-2 border-red-700 bg-white text-red-800 hover:bg-red-50;
+  }
+
+  .m-input {
+    @apply min-h-[52px] w-full rounded-xl border border-cream-400 bg-white px-4 py-3 text-[17px] text-charcoal placeholder:text-stone-400 focus:border-sage-600 focus:outline-none focus:ring-2 focus:ring-sage-200;
+  }
+
+  .m-label {
+    @apply mb-1.5 block text-[15px] font-semibold text-charcoal;
+  }
+
+  .m-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold-700;
+  }
+
+  .m-chip {
+    @apply inline-flex min-h-[44px] shrink-0 items-center rounded-full border px-4 text-sm font-semibold tracking-wide transition-colors;
+  }
+
+  /* Admin-side density: same palette, normal-size controls. */
+  .m-admin-input {
+    @apply w-full rounded-lg border border-cream-400 bg-white px-3 py-2 text-[15px] text-charcoal focus:border-sage-600 focus:outline-none focus:ring-2 focus:ring-sage-200;
+  }
+
+  .m-admin-btn {
+    @apply inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg px-3.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+}
