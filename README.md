@@ -115,8 +115,13 @@ box when creating the event. The starter list is defined in `seed_default_menu()
 2. Under **Settings → Environment Variables**, add `NEXT_PUBLIC_SUPABASE_URL` and
    `NEXT_PUBLIC_SUPABASE_ANON_KEY` from this site's Supabase project (Production, and Preview if you
    use preview deployments).
-3. Deploy. Optionally add your own domain under **Settings → Domains**, and update the Supabase Site
-   URL to match.
+3. Deploy. Vercel gives the site a free address like `your-project-name.vercel.app` — no domain
+   purchase is needed. Put that address in Supabase under **Authentication → URL Configuration →
+   Site URL**. (Optionally, add your own domain later under **Settings → Domains** and update the
+   Site URL to match.)
+
+The two values can be the legacy **anon public** key (`eyJ…`) or the newer **publishable** key
+(`sb_publishable_…`). Never use the `service_role` / secret key in this project.
 
 Link previews in text messages use the event's name, message, and photo.
 
