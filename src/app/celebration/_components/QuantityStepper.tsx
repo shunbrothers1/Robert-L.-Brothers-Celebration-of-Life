@@ -22,19 +22,19 @@ export default function QuantityStepper({
     <div className="flex items-center gap-3" role="group" aria-labelledby={labelledBy}>
       <button
         type="button"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl font-semibold text-sage-800 ring-1 ring-cream-400 hover:bg-sage-50 disabled:opacity-40"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl font-semibold text-navy-800 ring-1 ring-mist-400 hover:bg-navy-50 disabled:opacity-40"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         aria-label="Less"
       >
         −
       </button>
-      <output className="min-w-0 flex-1 rounded-xl bg-white px-3 py-3 text-center text-[18px] font-semibold ring-1 ring-cream-300" aria-live="polite">
+      <output className="min-w-0 flex-1 rounded-xl bg-white px-3 py-3 text-center text-[18px] font-semibold ring-1 ring-mist-300" aria-live="polite">
         {formatAmount(value, unit)}
       </output>
       <button
         type="button"
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl font-semibold text-sage-800 ring-1 ring-cream-400 hover:bg-sage-50 disabled:opacity-40"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-2xl font-semibold text-navy-800 ring-1 ring-mist-400 hover:bg-navy-50 disabled:opacity-40"
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
         aria-label="More"

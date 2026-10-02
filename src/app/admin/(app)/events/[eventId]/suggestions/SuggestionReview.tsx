@@ -6,12 +6,12 @@ import { adminBrowserClient } from "@/lib/celebration/browser";
 import { formatDateTime } from "@/lib/celebration/format";
 import type { FoodCategory, SuggestedItem } from "@/lib/celebration/types";
 
-const btn = "m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100";
+const btn = "m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100";
 const STATUS_BADGE: Record<SuggestedItem["status"], string> = {
   pending: "bg-gold-50 text-gold-700",
-  approved: "bg-sage-100 text-sage-800",
-  declined: "bg-stone-200 text-stone-600",
-  withdrawn: "bg-stone-200 text-stone-600",
+  approved: "bg-navy-100 text-navy-800",
+  declined: "bg-slate-200 text-slate-600",
+  withdrawn: "bg-slate-200 text-slate-600",
 };
 
 export default function SuggestionReview({ suggestions, categories }: { suggestions: SuggestedItem[]; categories: FoodCategory[] }) {
@@ -20,13 +20,13 @@ export default function SuggestionReview({ suggestions, categories }: { suggesti
 
   return (
     <div className="space-y-6">
-      <p className="text-stone-600">
+      <p className="text-slate-600">
         Guests&apos; &ldquo;bring something else&rdquo; offers wait here as <strong>Pending Family Approval</strong>. Approving adds it
         to the public list as a covered item (so nobody duplicates it) with this guest as the confirmed contributor.
       </p>
       <section className="space-y-3">
         <h2 className="font-display text-xl font-semibold">Pending ({pending.length})</h2>
-        {pending.length === 0 && <p className="m-card p-5 text-stone-500">Nothing waiting for review.</p>}
+        {pending.length === 0 && <p className="m-card p-5 text-slate-500">Nothing waiting for review.</p>}
         {pending.map((s) => (
           <PendingCard key={s.id} suggestion={s} categories={categories} />
         ))}
@@ -34,7 +34,7 @@ export default function SuggestionReview({ suggestions, categories }: { suggesti
       {reviewed.length > 0 && (
         <section className="space-y-3">
           <h2 className="font-display text-xl font-semibold">Reviewed</h2>
-          <ul className="m-card divide-y divide-cream-200">
+          <ul className="m-card divide-y divide-mist-200">
             {reviewed.map((s) => (
               <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 p-4">
                 <span>
@@ -62,17 +62,17 @@ function PendingCard({ suggestion: s, categories }: { suggestion: SuggestedItem;
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="font-display text-xl font-semibold">{s.item_name}</p>
-          {s.quantity_text && <p className="text-stone-700">Amount: {s.quantity_text}</p>}
-          {s.note && <p className="italic text-stone-600">&ldquo;{s.note}&rdquo;</p>}
+          {s.quantity_text && <p className="text-slate-700">Amount: {s.quantity_text}</p>}
+          {s.note && <p className="italic text-slate-600">&ldquo;{s.note}&rdquo;</p>}
         </div>
-        <span className="text-sm text-stone-500">{formatDateTime(s.created_at)}</span>
+        <span className="text-sm text-slate-500">{formatDateTime(s.created_at)}</span>
       </div>
       <p>
         <span className="font-semibold">{s.contributor_name}</span>
         {s.phone && (
           <>
             {" · "}
-            <a href={`tel:${s.phone}`} className="text-sage-700 underline">
+            <a href={`tel:${s.phone}`} className="text-navy-700 underline">
               {s.phone}
             </a>
           </>
@@ -80,7 +80,7 @@ function PendingCard({ suggestion: s, categories }: { suggestion: SuggestedItem;
         {s.email && (
           <>
             {" · "}
-            <a href={`mailto:${s.email}`} className="text-sage-700 underline">
+            <a href={`mailto:${s.email}`} className="text-navy-700 underline">
               {s.email}
             </a>
           </>
@@ -98,7 +98,7 @@ function PendingCard({ suggestion: s, categories }: { suggestion: SuggestedItem;
         </select>
         <button
           type="button"
-          className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800"
+          className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800"
           disabled={busy}
           onClick={() => run(() => db.rpc("approve_suggested_item", { p_suggestion_id: s.id, p_category_id: categoryId || null }))}
         >

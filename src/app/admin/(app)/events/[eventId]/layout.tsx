@@ -25,11 +25,11 @@ export default async function EventLayout({
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className={`rounded-full px-2.5 py-1 text-xs font-bold uppercase ${event.is_published ? "bg-sage-100 text-sage-800" : "bg-cream-200 text-stone-600"}`}
+            className={`rounded-full px-2.5 py-1 text-xs font-bold uppercase ${event.is_published ? "bg-navy-100 text-navy-800" : "bg-mist-200 text-slate-600"}`}
           >
             {event.is_published ? "Published" : "Draft — not public yet"}
           </span>
-          <Link href={`/celebration/${event.slug}`} target="_blank" className="m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100">
+          <Link href={`/celebration/${event.slug}`} target="_blank" className="m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100">
             View public page ↗
           </Link>
         </div>

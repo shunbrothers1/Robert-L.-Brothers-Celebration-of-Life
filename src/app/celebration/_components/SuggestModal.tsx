@@ -56,13 +56,13 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
     return (
       <Modal key="done" open onClose={onClose} title="Thank You ❤️">
         <div className="space-y-5 text-center">
-          <p className="text-[17px] leading-relaxed text-stone-700">
+          <p className="text-[17px] leading-relaxed text-slate-700">
             We appreciate it! Your suggestion has been sent to the family.
           </p>
           <div className="rounded-2xl bg-gold-50 p-4 ring-1 ring-gold-100">
             <p className="text-sm font-semibold uppercase tracking-wide text-gold-700">Status</p>
             <p className="mt-1 font-display text-xl font-semibold">Pending Family Approval</p>
-            <p className="mt-2 text-[15px] text-stone-600">
+            <p className="mt-2 text-[15px] text-slate-600">
               To avoid duplicate dishes, the family will review it. Check your link below to see when it&apos;s approved.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
   return (
     <Modal key="form" open onClose={onClose} title="Suggest an Item">
       <form onSubmit={submit} className="space-y-5" noValidate>
-        <p className="text-[16px] text-stone-600">
+        <p className="text-[16px] text-slate-600">
           We appreciate it! Let us know what you&apos;d like to bring. The family will confirm it so we don&apos;t end
           up with duplicates.
         </p>
@@ -98,7 +98,7 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
         </div>
         <div>
           <label className="m-label" htmlFor="suggest-phone">
-            Phone <span className="font-normal text-stone-500">(optional)</span>
+            Phone <span className="font-normal text-slate-500">(optional)</span>
           </label>
           <input
             id="suggest-phone"
@@ -126,7 +126,7 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
         </div>
         <div>
           <label className="m-label" htmlFor="suggest-qty">
-            Quantity <span className="font-normal text-stone-500">(optional)</span>
+            Quantity <span className="font-normal text-slate-500">(optional)</span>
           </label>
           <input
             id="suggest-qty"
@@ -139,7 +139,7 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
         </div>
         <div>
           <label className="m-label" htmlFor="suggest-note">
-            Notes <span className="font-normal text-stone-500">(optional)</span>
+            Notes <span className="font-normal text-slate-500">(optional)</span>
           </label>
           <textarea
             id="suggest-note"
@@ -149,7 +149,7 @@ export default function SuggestModal({ slug, onClose }: { slug: string; onClose:
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
-        <p className="-mt-2 text-sm text-stone-500">Only the family can see your phone number.</p>
+        <p className="-mt-2 text-sm text-slate-500">Only the family can see your phone number.</p>
 
         {error && (
           <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-[16px] text-red-800 ring-1 ring-red-200">

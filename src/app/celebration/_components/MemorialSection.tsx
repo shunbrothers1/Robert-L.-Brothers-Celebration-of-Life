@@ -29,7 +29,7 @@ export default function MemorialSection({ personName, memorial }: { personName: 
             </blockquote>
           )}
           {memorial.biography && (
-            <div className="mx-auto mt-6 max-w-xl whitespace-pre-line text-left text-[17px] leading-relaxed text-stone-700">
+            <div className="mx-auto mt-6 max-w-xl whitespace-pre-line text-left text-[17px] leading-relaxed text-slate-700">
               {memorial.biography}
             </div>
           )}

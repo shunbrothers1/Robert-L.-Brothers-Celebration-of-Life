@@ -15,7 +15,7 @@ export default function EventTabs({ eventId, pendingSuggestions }: { eventId: st
     { href: `${base}/print`, label: "Print" },
   ];
   return (
-    <nav className="-mx-4 overflow-x-auto border-b border-cream-300 px-4 print:hidden" aria-label="Event sections">
+    <nav className="-mx-4 overflow-x-auto border-b border-mist-300 px-4 print:hidden" aria-label="Event sections">
       <div className="flex gap-1">
         {tabs.map((t) => {
           const active = t.href === base ? pathname === base : pathname.startsWith(t.href);
@@ -24,7 +24,7 @@ export default function EventTabs({ eventId, pendingSuggestions }: { eventId: st
               key={t.href}
               href={t.href}
               aria-current={active ? "page" : undefined}
-              className={`flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 text-sm font-semibold ${active ? "border-sage-700 text-sage-800" : "border-transparent text-stone-600 hover:text-charcoal"}`}
+              className={`flex shrink-0 items-center gap-2 border-b-2 px-3 py-2.5 text-sm font-semibold ${active ? "border-navy-700 text-navy-800" : "border-transparent text-slate-600 hover:text-charcoal"}`}
             >
               {t.label}
               {t.badge ? (

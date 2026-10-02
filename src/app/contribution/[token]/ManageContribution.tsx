@@ -8,13 +8,13 @@ import { forgetSignup } from "@/lib/celebration/device-memory";
 import type { ManagedContribution } from "@/lib/celebration/types";
 
 const STATUS_TEXT: Record<string, { label: string; tone: string }> = {
-  confirmed: { label: "Confirmed", tone: "bg-sage-100 text-sage-800" },
-  received: { label: "Received — thank you!", tone: "bg-sage-100 text-sage-800" },
-  cancelled: { label: "Cancelled", tone: "bg-stone-200 text-stone-700" },
+  confirmed: { label: "Confirmed", tone: "bg-navy-100 text-navy-800" },
+  received: { label: "Received — thank you!", tone: "bg-navy-100 text-navy-800" },
+  cancelled: { label: "Cancelled", tone: "bg-slate-200 text-slate-700" },
   pending: { label: "Pending Family Approval", tone: "bg-gold-50 text-gold-700" },
-  approved: { label: "Approved", tone: "bg-sage-100 text-sage-800" },
-  declined: { label: "Not needed this time", tone: "bg-stone-200 text-stone-700" },
-  withdrawn: { label: "Withdrawn", tone: "bg-stone-200 text-stone-700" },
+  approved: { label: "Approved", tone: "bg-navy-100 text-navy-800" },
+  declined: { label: "Not needed this time", tone: "bg-slate-200 text-slate-700" },
+  withdrawn: { label: "Withdrawn", tone: "bg-slate-200 text-slate-700" },
 };
 
 export default function ManageContribution({ token, initial }: { token: string; initial: ManagedContribution }) {
@@ -71,46 +71,46 @@ export default function ManageContribution({ token, initial }: { token: string; 
       <div className="text-center">
         <p className="m-eyebrow">{c.event.event_name}</p>
         <h1 className="mt-2 font-display text-3xl font-semibold">{c.event.person_name}</h1>
-        {date && <p className="mt-1 text-stone-600">{date}</p>}
+        {date && <p className="mt-1 text-slate-600">{date}</p>}
       </div>
 
       <div className="m-card space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-stone-500">
+            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               {c.kind === "suggestion" ? "Your suggestion" : "You signed up to bring"}
             </p>
             <p className="mt-1 font-display text-2xl font-semibold">{c.item_name}</p>
-            {amount && <p className="text-[17px] text-stone-700">{amount}</p>}
+            {amount && <p className="text-[17px] text-slate-700">{amount}</p>}
           </div>
           <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${status.tone}`}>
             {status.label}
           </span>
         </div>
-        <p className="text-[15px] text-stone-600">Signed up by {c.contributor_name}</p>
+        <p className="text-[15px] text-slate-600">Signed up by {c.contributor_name}</p>
 
         {(c.event.repast_location_name || c.event.repast_time_text) && (
-          <div className="rounded-xl bg-cream-100 p-4 text-[15px]">
+          <div className="rounded-xl bg-mist-100 p-4 text-[15px]">
             <p className="font-semibold">Where &amp; when to bring it</p>
             {c.event.repast_location_name && <p>{c.event.repast_location_name}</p>}
-            {c.event.repast_address && <p className="text-stone-600">{c.event.repast_address}</p>}
-            {c.event.repast_time_text && <p className="text-stone-600">{c.event.repast_time_text}</p>}
+            {c.event.repast_address && <p className="text-slate-600">{c.event.repast_address}</p>}
+            {c.event.repast_time_text && <p className="text-slate-600">{c.event.repast_time_text}</p>}
           </div>
         )}
 
         {isPendingSuggestion && (
-          <p className="text-[15px] text-stone-600">
+          <p className="text-[15px] text-slate-600">
             The family will review your suggestion to avoid duplicate dishes. Check back here to see when it&apos;s
             approved.
           </p>
         )}
         {c.kind === "suggestion" && c.status === "approved" && (
-          <p className="text-[15px] text-stone-600">Your suggestion was approved. Thank you!</p>
+          <p className="text-[15px] text-slate-600">Your suggestion was approved. Thank you!</p>
         )}
       </div>
 
       {message && (
-        <p role="status" className="rounded-xl bg-sage-50 px-4 py-3 text-[16px] text-sage-800 ring-1 ring-sage-200">
+        <p role="status" className="rounded-xl bg-navy-50 px-4 py-3 text-[16px] text-navy-800 ring-1 ring-navy-200">
           {message}
         </p>
       )}
@@ -135,7 +135,7 @@ export default function ManageContribution({ token, initial }: { token: string; 
               labelledBy="manage-qty"
               onChange={setQuantity}
             />
-            <p className="mt-1.5 text-sm text-stone-500">
+            <p className="mt-1.5 text-sm text-slate-500">
               {c.signups_open
                 ? c.max_quantity > c.quantity
                   ? `You can bring up to ${formatAmount(c.max_quantity, c.unit)}.`
@@ -145,7 +145,7 @@ export default function ManageContribution({ token, initial }: { token: string; 
           </div>
           <div>
             <label className="m-label" htmlFor="manage-note">
-              Note <span className="font-normal text-stone-500">(optional)</span>
+              Note <span className="font-normal text-slate-500">(optional)</span>
             </label>
             <textarea
               id="manage-note"

@@ -24,10 +24,10 @@ export default async function PrintPage({
     <div className="mx-auto max-w-3xl bg-white p-6 text-[14px] text-black print:max-w-none print:p-0 print:text-[12px]">
       <div className="mb-6 flex flex-wrap items-center gap-2 print:hidden">
         <PrintButton />
-        <a href={`${base}/export`} className="m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100">
+        <a href={`${base}/export`} className="m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100">
           Download contributor list (CSV)
         </a>
-        <Link href={showPhones ? `${base}/print?phones=0` : `${base}/print`} className="m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100">
+        <Link href={showPhones ? `${base}/print?phones=0` : `${base}/print`} className="m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100">
           {showPhones ? "Hide phone numbers" : "Show phone numbers"}
         </Link>
       </div>
@@ -37,7 +37,7 @@ export default async function PrintPage({
         <p>
           {[formatLongDate(event.event_date), event.repast_location_name, event.repast_time_text].filter(Boolean).join(" · ")}
         </p>
-        <p className="text-xs text-stone-600">Printed {new Date().toLocaleString("en-US")} · Family use only — contains contact details.</p>
+        <p className="text-xs text-slate-600">Printed {new Date().toLocaleString("en-US")} · Family use only — contains contact details.</p>
       </header>
 
       {categories.map((c) => {
@@ -45,7 +45,7 @@ export default async function PrintPage({
         if (list.length === 0) return null;
         return (
           <section key={c.id} className="mb-6 break-inside-avoid-page">
-            <h2 className="mb-2 border-b border-stone-400 pb-1 text-base font-bold uppercase tracking-wide">{c.name}</h2>
+            <h2 className="mb-2 border-b border-slate-400 pb-1 text-base font-bold uppercase tracking-wide">{c.name}</h2>
             <ul className="space-y-1">
               {list.map((i) => {
                 const p = itemProgress(i);
@@ -57,12 +57,12 @@ export default async function PrintPage({
                         <span>
                           <strong>{i.name}</strong> — {con.contributor_name} — {con.amount_detail ?? formatAmount(con.quantity, i.unit)}
                           {showPhones && con.phone ? ` — ${con.phone}` : ""}
-                          {con.note ? <span className="text-stone-600"> ({con.note})</span> : null}
+                          {con.note ? <span className="text-slate-600"> ({con.note})</span> : null}
                         </span>
                       </p>
                     ))}
                     {p.status !== "covered" && p.remaining > 0 && (
-                      <p className="flex gap-2 py-0.5 text-stone-600">
+                      <p className="flex gap-2 py-0.5 text-slate-600">
                         <span aria-hidden="true">☐</span>
                         <span>
                           <strong>{i.name}</strong> — <em>still needed: {formatAmount(p.remaining, i.unit)}</em>

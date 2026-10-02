@@ -1,6 +1,7 @@
 # Celebration of Life — Repast Food & Supply Sign-Up
 
-A warm, mobile-first website for coordinating food and supplies for a funeral repast. Family and
+A warm, mobile-first website for coordinating food and supplies for a funeral repast, styled in navy
+blue, light blue, white, and gold. Family and
 friends open a texted link, see what's still needed, and sign up to bring an item in about a minute
 — no account needed. Every item is capped at the quantity the family asks for, enforced in the
 database, so the repast doesn't end up with five pans of macaroni and no drinks.
@@ -51,7 +52,7 @@ src/app/api/celebration/    guest API routes (validate, then call the database f
 src/lib/celebration/        types, formatting, errors, data loading, stats, uploads
 src/lib/supabase/           Supabase clients + session refresh for this project
 src/proxy.ts                Next.js proxy (middleware): requires a session for /admin
-supabase/migrations/0001_initial_schema.sql   the whole database
+supabase/migrations/          0001 schema, 0002 background artwork
 supabase/seed/sample_event.sql                optional demo event
 e2e/                        browser end-to-end tests
 ```
@@ -61,9 +62,12 @@ e2e/                        browser end-to-end tests
 ### 1. Create a dedicated Supabase project
 
 1. Create a **new** project at [supabase.com](https://supabase.com) for this site only.
-2. In **SQL Editor**, run `supabase/migrations/0001_initial_schema.sql` (or `supabase db push` with
-   the Supabase CLI). It creates the tables, security rules, database functions, and the
-   `memorial-photos` storage bucket.
+2. In **SQL Editor**, run each file in `supabase/migrations/` once, in order (or `supabase db push`
+   with the Supabase CLI):
+   - `0001_initial_schema.sql` — tables, security rules, database functions, and the
+     `memorial-photos` storage bucket.
+   - `0002_background_artwork.sql` — the optional **Background artwork** photo shown behind the page
+     header. Until it's run, the site works normally and that setting simply stays hidden.
 3. **Authentication → Sign In / Providers:** turn off **Allow new users to sign up**. Admins are
    created by you (next step), and nobody else needs an account.
 4. **Authentication → URL Configuration:** set **Site URL** to your site's address, for example
@@ -139,7 +143,8 @@ Link previews in text messages use the event's name, message, and photo.
 - **Suggestions:** guests' "bring something else" offers wait as **Pending Family Approval**.
   **Approve** adds the item to the public list (under Other, or a category you choose) as already
   covered, with the guest as its confirmed contributor. **Decline** leaves the list unchanged.
-- **Event Settings:** page header, message, photos (resized in the browser before upload), memorial
+- **Event Settings:** page header, message, photos (resized in the browser before upload), optional
+  background artwork behind the header (for example the funeral program's florals), memorial
   section (photo, biography, favorite saying, extra photos), sign-up deadline and timezone, and the
   switches **Published**, **Accepting sign-ups**, **Show contributor first names publicly**,
   **Allow suggestions**, and **Show memorial section**. After the deadline (end of that day in the

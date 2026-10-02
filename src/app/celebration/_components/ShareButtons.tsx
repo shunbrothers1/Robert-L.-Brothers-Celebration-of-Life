@@ -31,7 +31,7 @@ export default function ShareButtons({ personName, path }: { personName: string;
   return (
     <div className="m-card p-6 text-center">
       <p className="font-display text-xl font-semibold">Share With Family &amp; Friends</p>
-      <p className="mx-auto mt-2 max-w-md text-[15px] text-stone-600">
+      <p className="mx-auto mt-2 max-w-md text-[15px] text-slate-600">
         Know someone who would like to help? Send them this page.
       </p>
       <div className={`mt-4 grid gap-3 ${canShare ? "sm:grid-cols-2" : ""}`}>

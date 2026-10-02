@@ -19,12 +19,12 @@ export default function ManageLinkBox({ token }: { token: string }) {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-4 text-left ring-1 ring-cream-300">
+    <div className="rounded-2xl bg-white p-4 text-left ring-1 ring-mist-300">
       <p className="text-[15px] font-semibold">Need to change or cancel later?</p>
-      <p className="mt-1 text-[15px] text-stone-600">
+      <p className="mt-1 text-[15px] text-slate-600">
         Use your private link below. We&apos;ve also saved it on this phone — it will show at the top of the food list.
       </p>
-      <p className="mt-2 break-all rounded-lg bg-cream-100 px-3 py-2 font-mono text-[13px] text-stone-700">{url}</p>
+      <p className="mt-2 break-all rounded-lg bg-mist-100 px-3 py-2 font-mono text-[13px] text-slate-700">{url}</p>
       <div className="mt-3 grid grid-cols-2 gap-2">
         <button type="button" className="m-btn-quiet min-h-[44px] px-3 text-sm" onClick={copy}>
           {copied ? "Copied ✓" : "Copy link"}

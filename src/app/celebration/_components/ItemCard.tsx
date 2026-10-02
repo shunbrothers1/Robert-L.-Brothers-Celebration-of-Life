@@ -5,8 +5,8 @@ import type { PublicItem } from "@/lib/celebration/types";
 
 const STATUS_STYLES = {
   needed: "bg-gold-50 text-gold-700 ring-gold-100",
-  almost: "bg-sage-50 text-sage-700 ring-sage-200",
-  covered: "bg-sage-100 text-sage-800 ring-sage-200",
+  almost: "bg-navy-50 text-navy-700 ring-navy-200",
+  covered: "bg-navy-100 text-navy-800 ring-navy-200",
 } as const;
 
 export default function ItemCard({
@@ -25,7 +25,7 @@ export default function ItemCard({
   return (
     <article
       aria-labelledby={titleId}
-      className={`m-card flex flex-col gap-3 p-5 ${covered ? "border-sage-200 bg-sage-50/60 shadow-none" : ""}`}
+      className={`m-card flex flex-col gap-3 p-5 ${covered ? "border-navy-200 bg-navy-50/60 shadow-none" : ""}`}
     >
       {item.is_priority && !covered && (
         <p className="-mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-gold-700 px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-white">
@@ -39,7 +39,7 @@ export default function ItemCard({
             {item.name}
           </h3>
           {p.needed > 0 && (
-            <p className="text-[16px] text-stone-600">
+            <p className="text-[16px] text-slate-600">
               {formatAmount(p.needed, item.unit)} needed
             </p>
           )}
@@ -51,11 +51,11 @@ export default function ItemCard({
         </span>
       </div>
 
-      {item.description && <p className="text-[16px] text-stone-600">{item.description}</p>}
+      {item.description && <p className="text-[16px] text-slate-600">{item.description}</p>}
 
       {covered ? (
-        <p className="flex items-center gap-2 text-[17px] font-bold tracking-wide text-sage-700">
-          <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-sage-700 text-sm text-white">
+        <p className="flex items-center gap-2 text-[17px] font-bold tracking-wide text-navy-700">
+          <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-navy-700 text-sm text-white">
             ✓
           </span>
           COVERED — THANK YOU!
@@ -64,17 +64,17 @@ export default function ItemCard({
         <>
           <div>
             <div
-              className="h-3 w-full overflow-hidden rounded-full bg-cream-200"
+              className="h-3 w-full overflow-hidden rounded-full bg-mist-200"
               role="progressbar"
               aria-valuemin={0}
               aria-valuemax={p.needed}
               aria-valuenow={p.claimed}
               aria-label={`${p.claimed} of ${p.needed} claimed`}
             >
-              <div className="h-full rounded-full bg-sage-600 transition-[width]" style={{ width: `${p.percent}%` }} />
+              <div className="h-full rounded-full bg-navy-600 transition-[width]" style={{ width: `${p.percent}%` }} />
             </div>
             <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-              <p className="text-[15px] text-stone-600">
+              <p className="text-[15px] text-slate-600">
                 {p.claimed} of {p.needed} claimed
               </p>
               <p className="text-[15px] font-bold uppercase tracking-wide text-gold-700">
@@ -86,7 +86,7 @@ export default function ItemCard({
       )}
 
       {item.claimed_by.length > 0 && (
-        <p className="text-[15px] text-stone-600">
+        <p className="text-[15px] text-slate-600">
           Claimed by {item.claimed_by.join(", ")}
         </p>
       )}

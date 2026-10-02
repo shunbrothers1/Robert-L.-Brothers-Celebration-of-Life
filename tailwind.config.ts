@@ -1,29 +1,30 @@
 import type { Config } from "tailwindcss";
 
-// Warm, respectful Celebration of Life palette: cream/ivory backgrounds,
-// muted sage for actions, subtle gold accents, charcoal text.
+// Celebration of Life palette, matching the service colors: navy blue for
+// headings and actions, soft light-blue ("mist") backgrounds, white cards,
+// and gold accents.
 const config: Config = {
   content: ["./src/app/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        cream: {
-          DEFAULT: "#fbf8f2",
-          50: "#fdfcf9",
-          100: "#fbf8f2",
-          200: "#f3ede1",
-          300: "#e8dfcc",
-          400: "#d6cab2",
+        mist: {
+          DEFAULT: "#f2f6fb",
+          50: "#fbfcfe",
+          100: "#f2f6fb",
+          200: "#e3ecf7",
+          300: "#cddcef",
+          400: "#b3c8e3",
         },
-        sage: {
-          50: "#f2f5f0",
-          100: "#e3eadf",
-          200: "#c9d6c3",
-          300: "#a9bba2",
-          500: "#7a9172",
-          600: "#62785b",
-          700: "#4d6047",
-          800: "#3d4d39",
+        navy: {
+          50: "#eef3fa",
+          100: "#dce6f3",
+          200: "#bccde6",
+          300: "#93afd6",
+          500: "#3a5c91",
+          600: "#26467a",
+          700: "#1b3561",
+          800: "#13284b",
         },
         gold: {
           DEFAULT: "#c6a35d",
@@ -35,10 +36,10 @@ const config: Config = {
           700: "#8a6c3d",
         },
         charcoal: {
-          DEFAULT: "#232320",
-          50: "#2c2c28",
-          100: "#232320",
-          200: "#1a1a18",
+          DEFAULT: "#1a2740",
+          50: "#24324d",
+          100: "#1a2740",
+          200: "#111b2e",
         },
       },
       fontFamily: {

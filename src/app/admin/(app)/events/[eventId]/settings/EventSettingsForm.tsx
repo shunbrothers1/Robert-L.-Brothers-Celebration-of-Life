@@ -27,21 +27,21 @@ function Field({ label, hint, htmlFor, children }: { label: string; hint?: strin
         {label}
       </label>
       {children}
-      {hint && <p className="mt-1 text-xs text-stone-500">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-slate-500">{hint}</p>}
     </div>
   );
 }
 
 function Toggle({ checked, onChange, label, hint }: { checked: boolean; onChange: (v: boolean) => void; label: string; hint?: string }) {
   return (
-    <label className="flex cursor-pointer items-start justify-between gap-4 rounded-xl bg-cream-100 p-4">
+    <label className="flex cursor-pointer items-start justify-between gap-4 rounded-xl bg-mist-100 p-4">
       <span>
         <span className="block font-semibold">{label}</span>
-        {hint && <span className="block text-sm text-stone-600">{hint}</span>}
+        {hint && <span className="block text-sm text-slate-600">{hint}</span>}
       </span>
       <span className="flex shrink-0 items-center gap-2">
-        <span className={`text-xs font-bold uppercase ${checked ? "text-sage-700" : "text-stone-500"}`}>{checked ? "On" : "Off"}</span>
-        <input type="checkbox" role="switch" className="h-6 w-6 accent-sage-700" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+        <span className={`text-xs font-bold uppercase ${checked ? "text-navy-700" : "text-slate-500"}`}>{checked ? "On" : "Off"}</span>
+        <input type="checkbox" role="switch" className="h-6 w-6 accent-navy-700" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       </span>
     </label>
   );
@@ -67,12 +67,12 @@ function PhotoField({
       <div className="flex flex-wrap items-center gap-4">
         {value ? (
           /* eslint-disable-next-line @next/next/no-img-element -- preview of an uploaded or pasted URL */
-          <img src={value} alt="" className="h-24 w-20 rounded-lg object-cover ring-1 ring-cream-300" />
+          <img src={value} alt="" className="h-24 w-20 rounded-lg object-cover ring-1 ring-mist-300" />
         ) : (
-          <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-cream-200 text-xs text-stone-500">No photo</div>
+          <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-mist-200 text-xs text-slate-500">No photo</div>
         )}
         <div className="space-y-2">
-          <label htmlFor={id} className="m-admin-btn cursor-pointer bg-white ring-1 ring-cream-400 hover:bg-cream-100">
+          <label htmlFor={id} className="m-admin-btn cursor-pointer bg-white ring-1 ring-mist-400 hover:bg-mist-100">
             {uploading ? "Uploading…" : value ? "Replace photo" : "Upload photo"}
           </label>
           <input
@@ -120,6 +120,8 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
   const { run, busy, error, setError } = useAdminAction();
   const [saved, setSaved] = useState(false);
   const [galleryUploading, setGalleryUploading] = useState(false);
+  // The column comes from migration 0002; "select *" includes it once it exists.
+  const hasArtworkColumn = "background_image_url" in event;
   const [f, setF] = useState<Form>({
     slug: event.slug,
     event_name: event.event_name,
@@ -127,6 +129,7 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
     birth_date_text: event.birth_date_text,
     passing_date_text: event.passing_date_text,
     photo_url: event.photo_url,
+    background_image_url: event.background_image_url ?? null,
     event_date: event.event_date,
     service_info: event.service_info,
     repast_time_text: event.repast_time_text,
@@ -171,6 +174,8 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
           birth_date_text: f.birth_date_text?.trim() || null,
           passing_date_text: f.passing_date_text?.trim() || null,
           photo_url: f.photo_url,
+          // Only send the artwork column once migration 0002 has added it.
+          ...(hasArtworkColumn ? { background_image_url: f.background_image_url ?? null } : {}),
           event_date: f.event_date || null,
           service_info: f.service_info?.trim() || null,
           repast_time_text: f.repast_time_text?.trim() || null,
@@ -262,6 +267,24 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
           </Field>
         </div>
         <PhotoField eventId={event.id} label="Photo" value={f.photo_url} onChange={(v) => set("photo_url", v)} />
+        {hasArtworkColumn ? (
+          <div>
+            <PhotoField
+              eventId={event.id}
+              label="Background artwork (optional)"
+              value={f.background_image_url ?? null}
+              onChange={(v) => set("background_image_url", v)}
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              Shown softly behind the top of the page — for example the floral design from the funeral program.
+            </p>
+          </div>
+        ) : (
+          <p className="rounded-lg bg-mist-200 px-3 py-2 text-sm text-slate-600">
+            Background artwork: run <span className="break-all font-mono">supabase/migrations/0002_background_artwork.sql</span> in
+            Supabase to turn this on.
+          </p>
+        )}
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Funeral / repast date" htmlFor="f-event_date">
             <input type="date" className="m-admin-input" {...text("event_date")} />
@@ -284,7 +307,7 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
         </Field>
         <Field label="Link name" htmlFor="f-slug" hint="Changing this breaks any link you've already shared.">
           <div className="flex items-center gap-1">
-            <span className="shrink-0 text-sm text-stone-500">/celebration/</span>
+            <span className="shrink-0 text-sm text-slate-500">/celebration/</span>
             <input
               id="f-slug"
               className="m-admin-input font-mono"
@@ -321,7 +344,7 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
       <section className="m-card space-y-4 p-5">
         <div>
           <h2 className="font-display text-xl font-semibold">Memorial section</h2>
-          {!f.show_memorial_section && <p className="text-sm text-stone-600">Currently hidden — turn it on above to show it.</p>}
+          {!f.show_memorial_section && <p className="text-sm text-slate-600">Currently hidden — turn it on above to show it.</p>}
         </div>
         <PhotoField eventId={event.id} label="Memorial photo" value={f.memorial_photo_url} onChange={(v) => set("memorial_photo_url", v)} />
         <Field label="Favorite saying or quote" htmlFor="f-favorite_quote">
@@ -336,10 +359,10 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
             {f.gallery_urls.map((url) => (
               <div key={url} className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element -- preview */}
-                <img src={url} alt="" className="h-20 w-20 rounded-lg object-cover ring-1 ring-cream-300" />
+                <img src={url} alt="" className="h-20 w-20 rounded-lg object-cover ring-1 ring-mist-300" />
                 <button
                   type="button"
-                  className="absolute -right-2 -top-2 h-7 w-7 rounded-full bg-white text-red-700 shadow ring-1 ring-cream-300"
+                  className="absolute -right-2 -top-2 h-7 w-7 rounded-full bg-white text-red-700 shadow ring-1 ring-mist-300"
                   onClick={() => set("gallery_urls", f.gallery_urls.filter((u) => u !== url))}
                   aria-label="Remove photo"
                 >
@@ -347,7 +370,7 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
                 </button>
               </div>
             ))}
-            <label className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-cream-400 text-center text-xs text-stone-500 hover:bg-cream-100">
+            <label className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-mist-400 text-center text-xs text-slate-500 hover:bg-mist-100">
               {galleryUploading ? "Uploading…" : "+ Add photos"}
               <input
                 type="file"
@@ -379,18 +402,18 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
 
       <section className="m-card space-y-2 border-red-200 p-5">
         <h2 className="font-display text-lg font-semibold text-red-800">Delete event</h2>
-        <p className="text-sm text-stone-600">Permanently removes this event, its food list and every sign-up.</p>
+        <p className="text-sm text-slate-600">Permanently removes this event, its food list and every sign-up.</p>
         <button type="button" className="m-admin-btn bg-white text-red-700 ring-1 ring-red-300 hover:bg-red-50" onClick={deleteEvent}>
           Delete this event…
         </button>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-cream-300 bg-white/95 px-4 py-3 backdrop-blur">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-mist-300 bg-white/95 px-4 py-3 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3">
-          <button type="submit" className="m-admin-btn bg-sage-700 px-6 text-white hover:bg-sage-800" disabled={busy || galleryUploading}>
+          <button type="submit" className="m-admin-btn bg-navy-700 px-6 text-white hover:bg-navy-800" disabled={busy || galleryUploading}>
             {busy ? "Saving…" : "Save changes"}
           </button>
-          {saved && <span className="text-sm font-semibold text-sage-700">Saved ✓</span>}
+          {saved && <span className="text-sm font-semibold text-navy-700">Saved ✓</span>}
           <div className="min-w-0 flex-1">
             <ErrorNote error={error} />
           </div>

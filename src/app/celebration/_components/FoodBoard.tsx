@@ -76,7 +76,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
             Food &amp; Supply List
           </h2>
           {items.length > 0 && (
-            <p className="mt-2 text-[16px] text-stone-600">
+            <p className="mt-2 text-[16px] text-slate-600">
               {totals.covered === 0
                 ? `${totals.total} items on the list`
                 : `${totals.covered} of ${totals.total} items covered — thank you!`}
@@ -88,28 +88,28 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
         </div>
 
         {!signupsOpen && (
-          <div className="m-card mt-6 bg-cream-100 p-5 text-center" role="status">
+          <div className="m-card mt-6 bg-mist-100 p-5 text-center" role="status">
             <p className="font-display text-xl font-semibold">
               {data.deadline_passed ? "Sign-ups have closed" : "Sign-ups are paused"}
             </p>
-            <p className="mt-1 text-[16px] text-stone-600">
+            <p className="mt-1 text-[16px] text-slate-600">
               Thank you for your love and support. If you&apos;d still like to help, please contact the family directly.
             </p>
           </div>
         )}
 
         {mine.length > 0 && (
-          <div className="m-card mt-6 border-sage-200 bg-sage-50 p-5">
-            <p className="font-display text-lg font-semibold text-sage-800">Your sign-ups from this phone</p>
+          <div className="m-card mt-6 border-navy-200 bg-navy-50 p-5">
+            <p className="font-display text-lg font-semibold text-navy-800">Your sign-ups from this phone</p>
             <ul className="mt-3 space-y-2">
               {mine.map((s) => (
-                <li key={s.token} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white px-4 py-3 ring-1 ring-sage-100">
+                <li key={s.token} className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white px-4 py-3 ring-1 ring-navy-100">
                   <span className="text-[16px]">
                     <span className="font-semibold">{s.itemName}</span>
                     {s.amount ? ` — ${s.amount}` : ""}
-                    {s.kind === "suggestion" && <span className="text-stone-500"> (suggestion)</span>}
+                    {s.kind === "suggestion" && <span className="text-slate-500"> (suggestion)</span>}
                   </span>
-                  <a href={`/contribution/${s.token}`} className="text-[15px] font-semibold text-sage-700 underline underline-offset-4">
+                  <a href={`/contribution/${s.token}`} className="text-[15px] font-semibold text-navy-700 underline underline-offset-4">
                     View / change
                   </a>
                 </li>
@@ -120,7 +120,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
       </div>
 
       {/* Filters — stick to the top while scrolling the list. */}
-      <div className="sticky top-0 z-30 mt-6 border-y border-cream-300 bg-cream/95 backdrop-blur">
+      <div className="sticky top-0 z-30 mt-6 border-y border-mist-300 bg-mist/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-3">
           <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="group" aria-label="Filter by category">
             {[{ id: ALL, short_name: "ALL" }, ...visibleCategories].map((c) => {
@@ -131,7 +131,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setFilter(c.id)}
-                  className={`m-chip ${active ? "border-sage-700 bg-sage-700 text-white" : "border-cream-400 bg-white text-charcoal hover:border-sage-500"}`}
+                  className={`m-chip ${active ? "border-navy-700 bg-navy-700 text-white" : "border-mist-400 bg-white text-charcoal hover:border-navy-500"}`}
                 >
                   {c.short_name.toUpperCase()}
                 </button>
@@ -156,7 +156,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
             <h3 className="flex items-center gap-2 font-display text-2xl font-semibold text-gold-700">
               <span aria-hidden="true">★</span> Most Needed
             </h3>
-            <p className="mt-1 text-[16px] text-stone-600">If you can, please consider one of these first.</p>
+            <p className="mt-1 text-[16px] text-slate-600">If you can, please consider one of these first.</p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {mostNeeded.map((item) => (
                 <ItemCard key={item.id} item={item} signupsOpen={signupsOpen} onSignUp={setSelected} />
@@ -167,7 +167,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
 
         {groups.map(({ category, items: groupItems }) => (
           <div key={category.id}>
-            <h3 className="border-b border-cream-300 pb-2 font-display text-2xl font-semibold">{category.name}</h3>
+            <h3 className="border-b border-mist-300 pb-2 font-display text-2xl font-semibold">{category.name}</h3>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {groupItems.map((item) => (
                 <ItemCard key={item.id} item={item} signupsOpen={signupsOpen} onSignUp={setSelected} />
@@ -190,9 +190,9 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
         )}
 
         {settings.allow_suggestions && signupsOpen && (
-          <div className="m-card bg-cream-100 p-6 text-center">
+          <div className="m-card bg-mist-100 p-6 text-center">
             <h3 className="font-display text-2xl font-semibold">Want to bring something that isn&apos;t listed?</h3>
-            <p className="mt-2 text-[16px] text-stone-600">We appreciate it! Let us know what you&apos;d like to bring.</p>
+            <p className="mt-2 text-[16px] text-slate-600">We appreciate it! Let us know what you&apos;d like to bring.</p>
             <button type="button" className="m-btn-outline mt-5 w-full sm:w-auto" onClick={() => setSuggesting(true)}>
               SUGGEST AN ITEM
             </button>

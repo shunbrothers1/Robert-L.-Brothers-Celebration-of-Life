@@ -8,12 +8,12 @@ import { formatAmount, formatDateTime, itemProgress } from "@/lib/celebration/fo
 import type { ItemWithClaims } from "@/lib/celebration/stats";
 import type { Contribution, ContributionStatus, FoodCategory } from "@/lib/celebration/types";
 
-const btn = "m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100";
+const btn = "m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100";
 
 const STATUS_BADGE: Record<ContributionStatus, string> = {
   confirmed: "bg-gold-50 text-gold-700",
-  received: "bg-sage-100 text-sage-800",
-  cancelled: "bg-stone-200 text-stone-600",
+  received: "bg-navy-100 text-navy-800",
+  cancelled: "bg-slate-200 text-slate-600",
 };
 
 type Draft = {
@@ -79,7 +79,7 @@ export default function ContributorManager({
           </a>
           <button
             type="button"
-            className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800"
+            className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800"
             onClick={() =>
               setDraft({ id: null, food_item_id: items[0]?.id ?? "", contributor_name: "", phone: "", email: "", quantity: 1, note: "" })
             }
@@ -91,15 +91,15 @@ export default function ContributorManager({
       </div>
 
       <ErrorNote error={error} />
-      <p className="text-sm text-stone-500">
+      <p className="text-sm text-slate-500">
         {filtered.length} sign-up{filtered.length === 1 ? "" : "s"} shown. Contact details are visible to admins only.
       </p>
 
       <div className="m-card overflow-hidden">
         {filtered.length === 0 ? (
-          <p className="p-5 text-stone-500">No sign-ups match.</p>
+          <p className="p-5 text-slate-500">No sign-ups match.</p>
         ) : (
-          <ul className="divide-y divide-cream-200">
+          <ul className="divide-y divide-mist-200">
             {filtered.map((c) => {
               const item = itemById.get(c.food_item_id);
               return (
@@ -107,12 +107,12 @@ export default function ContributorManager({
                   <div className="min-w-0">
                     <p className="font-semibold">{c.contributor_name}</p>
                     {c.phone && (
-                      <a href={`tel:${c.phone}`} className="block text-sm text-sage-700 underline">
+                      <a href={`tel:${c.phone}`} className="block text-sm text-navy-700 underline">
                         {c.phone}
                       </a>
                     )}
                     {c.email && (
-                      <a href={`mailto:${c.email}`} className="block break-all text-sm text-sage-700 underline">
+                      <a href={`mailto:${c.email}`} className="block break-all text-sm text-navy-700 underline">
                         {c.email}
                       </a>
                     )}
@@ -122,9 +122,9 @@ export default function ContributorManager({
                       <span className="font-semibold">{item?.name ?? "—"}</span> ·{" "}
                       {c.amount_detail ?? formatAmount(c.quantity, item?.unit ?? "")}
                     </p>
-                    {c.note && <p className="text-sm italic text-stone-600">&ldquo;{c.note}&rdquo;</p>}
+                    {c.note && <p className="text-sm italic text-slate-600">&ldquo;{c.note}&rdquo;</p>}
                   </div>
-                  <div className="text-sm text-stone-600">
+                  <div className="text-sm text-slate-600">
                     <span className={`mr-2 rounded-full px-2 py-0.5 text-xs font-bold uppercase ${STATUS_BADGE[c.status]}`}>{c.status}</span>
                     {formatDateTime(c.created_at)}
                     {c.source !== "public" && <span className="ml-1 text-xs">({c.source === "admin" ? "added by admin" : "from suggestion"})</span>}
@@ -255,7 +255,7 @@ function ContributionEditor({
       <form onSubmit={save} className="space-y-4 text-[15px]" noValidate>
         <div>
           <label className="m-label" htmlFor="c-item">
-            Item {d.id && <span className="font-normal text-stone-500">(choose another to move this sign-up)</span>}
+            Item {d.id && <span className="font-normal text-slate-500">(choose another to move this sign-up)</span>}
           </label>
           <select id="c-item" className="m-admin-input" value={d.food_item_id} onChange={(e) => set("food_item_id", e.target.value)}>
             {categories.map((cat) => (
@@ -274,7 +274,7 @@ function ContributionEditor({
             ))}
           </select>
           {target && (
-            <p className="mt-1 text-xs text-stone-500">
+            <p className="mt-1 text-xs text-slate-500">
               Room for this sign-up: {formatAmount(room, target.unit)}. To go over, raise the item&apos;s quantity on the Food List first.
             </p>
           )}
@@ -313,7 +313,7 @@ function ContributionEditor({
         </div>
         <ErrorNote error={error} />
         <div className="flex gap-2">
-          <button type="submit" className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800" disabled={busy}>
+          <button type="submit" className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800" disabled={busy}>
             {busy ? "Saving…" : "Save"}
           </button>
           <button type="button" className={btn} onClick={onClose}>

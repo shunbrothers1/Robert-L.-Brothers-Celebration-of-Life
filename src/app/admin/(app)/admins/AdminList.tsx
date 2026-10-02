@@ -17,17 +17,17 @@ export default function AdminList({
 
   return (
     <div className="space-y-4">
-      <ul className="m-card divide-y divide-cream-200">
+      <ul className="m-card divide-y divide-mist-200">
         {admins.map((a) => (
           <li key={a.user_id} className="flex flex-wrap items-center justify-between gap-2 p-4">
             <span>
               {a.email ?? a.user_id}
-              {a.user_id === currentUserId && <span className="ml-2 text-sm text-stone-500">(you)</span>}
+              {a.user_id === currentUserId && <span className="ml-2 text-sm text-slate-500">(you)</span>}
             </span>
             {a.user_id !== currentUserId && (
               <button
                 type="button"
-                className="m-admin-btn bg-white text-red-700 ring-1 ring-cream-400 hover:bg-red-50"
+                className="m-admin-btn bg-white text-red-700 ring-1 ring-mist-400 hover:bg-red-50"
                 disabled={busy}
                 onClick={() => {
                   if (window.confirm(`Remove ${a.email} as an admin?`)) run(() => db.from("admin_users").delete().eq("user_id", a.user_id));
@@ -52,7 +52,7 @@ export default function AdminList({
           </label>
           <input id="new-admin" type="email" required className="m-admin-input" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <button type="submit" className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800" disabled={busy}>
+        <button type="submit" className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800" disabled={busy}>
           Approve admin
         </button>
       </form>

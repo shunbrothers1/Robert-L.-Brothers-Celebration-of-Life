@@ -23,13 +23,13 @@ export default function CopyPublicLink({ slug, personName }: { slug: string; per
   return (
     <div className="m-card space-y-3 p-5">
       <h2 className="font-display text-xl font-semibold">Share link</h2>
-      <p className="break-all rounded-lg bg-cream-100 px-3 py-2 font-mono text-sm">{url}</p>
-      <p className="text-sm text-stone-600">{shareMessage(personName)}</p>
+      <p className="break-all rounded-lg bg-mist-100 px-3 py-2 font-mono text-sm">{url}</p>
+      <p className="text-sm text-slate-600">{shareMessage(personName)}</p>
       <div className="flex flex-wrap gap-2">
-        <button type="button" className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800" onClick={() => copy("link")}>
+        <button type="button" className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800" onClick={() => copy("link")}>
           {copied === "link" ? "Copied ✓" : "Copy link"}
         </button>
-        <button type="button" className="m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100" onClick={() => copy("message")}>
+        <button type="button" className="m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100" onClick={() => copy("message")}>
           {copied === "message" ? "Copied ✓" : "Copy message + link"}
         </button>
       </div>

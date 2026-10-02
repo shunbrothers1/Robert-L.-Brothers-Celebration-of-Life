@@ -18,6 +18,8 @@ export type PublicEventInfo = {
   birth_date_text: string | null;
   passing_date_text: string | null;
   photo_url: string | null;
+  /** Present once migration 0002 has been run. */
+  background_image_url?: string | null;
   event_date: string | null;
   service_info: string | null;
   repast_time_text: string | null;
@@ -123,6 +125,8 @@ export type MemorialEvent = {
   birth_date_text: string | null;
   passing_date_text: string | null;
   photo_url: string | null;
+  /** Present once migration 0002 has been run. */
+  background_image_url?: string | null;
   event_date: string | null;
   service_info: string | null;
   repast_time_text: string | null;

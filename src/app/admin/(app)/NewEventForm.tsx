@@ -55,7 +55,7 @@ export default function NewEventForm({ firstEvent }: { firstEvent: boolean }) {
     <form onSubmit={create} className="m-card space-y-4 p-6">
       <div>
         <h2 className="font-display text-2xl font-semibold">{firstEvent ? "Create your event" : "New event"}</h2>
-        <p className="text-stone-600">You can fill in the rest (photo, location, times, message) on the next screen.</p>
+        <p className="text-slate-600">You can fill in the rest (photo, location, times, message) on the next screen.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -75,7 +75,7 @@ export default function NewEventForm({ firstEvent }: { firstEvent: boolean }) {
             Link name
           </label>
           <div className="flex items-center gap-1">
-            <span className="shrink-0 text-sm text-stone-500">/celebration/</span>
+            <span className="shrink-0 text-sm text-slate-500">/celebration/</span>
             <input
               id="new-slug"
               className="m-admin-input font-mono"
@@ -90,7 +90,7 @@ export default function NewEventForm({ firstEvent }: { firstEvent: boolean }) {
         </div>
       </div>
       <label className="flex items-start gap-3">
-        <input type="checkbox" className="mt-1 h-5 w-5 accent-sage-700" checked={seed} onChange={(e) => setSeed(e.target.checked)} />
+        <input type="checkbox" className="mt-1 h-5 w-5 accent-navy-700" checked={seed} onChange={(e) => setSeed(e.target.checked)} />
         <span>
           Start with the suggested menu (main dishes, sides, desserts, drinks, supplies). Every item can be edited or
           deleted afterwards.

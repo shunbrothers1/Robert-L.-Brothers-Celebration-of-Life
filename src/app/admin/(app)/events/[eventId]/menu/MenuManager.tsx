@@ -21,7 +21,7 @@ type ItemDraft = {
   sort_order: number;
 };
 
-const btn = "m-admin-btn bg-white ring-1 ring-cream-400 hover:bg-cream-100";
+const btn = "m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100";
 
 export default function MenuManager({
   eventId,
@@ -82,7 +82,7 @@ export default function MenuManager({
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-stone-600">
+        <p className="text-slate-600">
           Everything guests see on the food list. Quantities can&apos;t go below what&apos;s already been claimed.
         </p>
         <div className="flex gap-2">
@@ -91,7 +91,7 @@ export default function MenuManager({
           </button>
           <button
             type="button"
-            className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800"
+            className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800"
             onClick={() => newItem()}
             disabled={categories.length === 0}
           >
@@ -108,18 +108,18 @@ export default function MenuManager({
         const list = items.filter((i) => i.category_id === c.id);
         return (
           <section key={c.id} className="m-card overflow-hidden">
-            <div className="flex items-center justify-between gap-2 border-b border-cream-200 bg-cream-100 px-4 py-3">
+            <div className="flex items-center justify-between gap-2 border-b border-mist-200 bg-mist-100 px-4 py-3">
               <h2 className="font-display text-lg font-semibold">
-                {c.name} <span className="text-sm font-normal text-stone-500">({list.length})</span>
+                {c.name} <span className="text-sm font-normal text-slate-500">({list.length})</span>
               </h2>
               <button type="button" className={btn} onClick={() => newItem(c.id)}>
                 + Add to {c.short_name.toLowerCase()}
               </button>
             </div>
             {list.length === 0 ? (
-              <p className="px-4 py-3 text-stone-500">No items yet.</p>
+              <p className="px-4 py-3 text-slate-500">No items yet.</p>
             ) : (
-              <ul className="divide-y divide-cream-200">
+              <ul className="divide-y divide-mist-200">
                 {list.map((i) => {
                   const p = itemProgress(i);
                   return (
@@ -128,10 +128,10 @@ export default function MenuManager({
                         <p className="font-semibold">
                           {i.is_priority && <span className="mr-1 text-gold-700" title="Most needed">★</span>}
                           {i.name}
-                          {i.is_hidden && <span className="ml-2 rounded bg-stone-200 px-1.5 py-0.5 text-xs font-bold uppercase text-stone-600">Hidden</span>}
-                          {i.manually_covered && <span className="ml-2 rounded bg-sage-100 px-1.5 py-0.5 text-xs font-bold uppercase text-sage-800">Marked covered</span>}
+                          {i.is_hidden && <span className="ml-2 rounded bg-slate-200 px-1.5 py-0.5 text-xs font-bold uppercase text-slate-600">Hidden</span>}
+                          {i.manually_covered && <span className="ml-2 rounded bg-navy-100 px-1.5 py-0.5 text-xs font-bold uppercase text-navy-800">Marked covered</span>}
                         </p>
-                        <p className="text-sm text-stone-600">
+                        <p className="text-sm text-slate-600">
                           {p.claimed} of {formatAmount(i.quantity_needed, i.unit)} claimed · {STATUS_LABEL[p.status]}
                           {i.description ? ` · ${i.description}` : ""}
                         </p>
@@ -267,7 +267,7 @@ function ItemEditor({
               value={d.quantity_needed}
               onChange={(e) => set("quantity_needed", Number(e.target.value))}
             />
-            {claimed > 0 && <p className="mt-1 text-xs text-stone-500">{claimed} already claimed</p>}
+            {claimed > 0 && <p className="mt-1 text-xs text-slate-500">{claimed} already claimed</p>}
           </div>
           <div>
             <label className="m-label" htmlFor="item-unit">
@@ -278,7 +278,7 @@ function ItemEditor({
         </div>
         <div>
           <label className="m-label" htmlFor="item-desc">
-            Serving description <span className="font-normal text-stone-500">(optional)</span>
+            Serving description <span className="font-normal text-slate-500">(optional)</span>
           </label>
           <input
             id="item-desc"
@@ -291,28 +291,28 @@ function ItemEditor({
         </div>
         <div>
           <label className="m-label" htmlFor="item-sort">
-            Sort order <span className="font-normal text-stone-500">(lower shows first)</span>
+            Sort order <span className="font-normal text-slate-500">(lower shows first)</span>
           </label>
           <input id="item-sort" type="number" className="m-admin-input" value={d.sort_order} onChange={(e) => set("sort_order", Number(e.target.value))} />
         </div>
         <fieldset className="space-y-2">
           <legend className="m-label">Options</legend>
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="h-5 w-5 accent-sage-700" checked={d.is_priority} onChange={(e) => set("is_priority", e.target.checked)} />
+            <input type="checkbox" className="h-5 w-5 accent-navy-700" checked={d.is_priority} onChange={(e) => set("is_priority", e.target.checked)} />
             Priority — show as &ldquo;Most Needed&rdquo;
           </label>
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="h-5 w-5 accent-sage-700" checked={d.manually_covered} onChange={(e) => set("manually_covered", e.target.checked)} />
+            <input type="checkbox" className="h-5 w-5 accent-navy-700" checked={d.manually_covered} onChange={(e) => set("manually_covered", e.target.checked)} />
             Mark covered (stop sign-ups for it)
           </label>
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="h-5 w-5 accent-sage-700" checked={d.is_hidden} onChange={(e) => set("is_hidden", e.target.checked)} />
+            <input type="checkbox" className="h-5 w-5 accent-navy-700" checked={d.is_hidden} onChange={(e) => set("is_hidden", e.target.checked)} />
             Hidden from the public page
           </label>
         </fieldset>
         <ErrorNote error={error} />
         <div className="flex gap-2">
-          <button type="submit" className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800" disabled={busy}>
+          <button type="submit" className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800" disabled={busy}>
             {busy ? "Saving…" : "Save item"}
           </button>
           <button type="button" className={btn} onClick={onClose}>
@@ -351,7 +351,7 @@ function CategoryEditor({ eventId, categories, items }: { eventId: string; categ
     <section className="m-card space-y-4 p-5">
       <div>
         <h2 className="font-display text-lg font-semibold">Categories</h2>
-        <p className="text-sm text-stone-600">The short name is the label on the public filter buttons. Lower sort order shows first.</p>
+        <p className="text-sm text-slate-600">The short name is the label on the public filter buttons. Lower sort order shows first.</p>
       </div>
       <ErrorNote error={error} />
       <ul className="space-y-2">
@@ -362,7 +362,7 @@ function CategoryEditor({ eventId, categories, items }: { eventId: string; categ
       <form onSubmit={add} className="grid gap-2 sm:grid-cols-[1fr_10rem_auto]">
         <input className="m-admin-input" placeholder="New category, e.g. Breakfast" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} />
         <input className="m-admin-input" placeholder="Short name" value={shortName} maxLength={24} onChange={(e) => setShortName(e.target.value)} />
-        <button type="submit" className="m-admin-btn bg-sage-700 text-white hover:bg-sage-800" disabled={busy}>
+        <button type="submit" className="m-admin-btn bg-navy-700 text-white hover:bg-navy-800" disabled={busy}>
           Add category
         </button>
       </form>

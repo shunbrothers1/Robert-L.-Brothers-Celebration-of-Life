@@ -53,16 +53,16 @@ export default function Modal({
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="relative max-h-[94dvh] w-full overflow-y-auto rounded-t-3xl bg-cream-50 shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl"
+        className="relative max-h-[94dvh] w-full overflow-y-auto rounded-t-3xl bg-mist-50 shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl"
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-cream-300 bg-cream-50/95 px-5 py-4 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-mist-300 bg-mist-50/95 px-5 py-4 backdrop-blur">
           <h2 id={titleId} className="font-display text-xl font-semibold text-charcoal">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-2xl leading-none text-stone-500 hover:bg-cream-200"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-2xl leading-none text-slate-500 hover:bg-mist-200"
             aria-label="Close"
           >
             ×

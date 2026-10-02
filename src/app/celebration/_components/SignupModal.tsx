@@ -97,12 +97,12 @@ export default function SignupModal({
     return (
       <Modal key="done" open onClose={onClose} title="Thank You ❤️">
         <div className="space-y-5 text-center">
-          <p className="text-[17px] leading-relaxed text-stone-700">
+          <p className="text-[17px] leading-relaxed text-slate-700">
             Thank you for helping our family celebrate the life of {personName}. Your contribution has been added to the
             repast list.
           </p>
-          <div className="rounded-2xl bg-sage-50 p-4 ring-1 ring-sage-200">
-            <p className="text-sm font-semibold uppercase tracking-wide text-sage-700">You signed up to bring:</p>
+          <div className="rounded-2xl bg-navy-50 p-4 ring-1 ring-navy-200">
+            <p className="text-sm font-semibold uppercase tracking-wide text-navy-700">You signed up to bring:</p>
             <p className="mt-1 font-display text-xl font-semibold text-charcoal">
               {done.result.item_name} — {done.amount}
             </p>
@@ -121,9 +121,9 @@ export default function SignupModal({
       <form onSubmit={submit} className="space-y-5" noValidate>
         <div>
           <p className="m-label">What are you bringing?</p>
-          <div className="rounded-xl bg-white px-4 py-3 ring-1 ring-cream-300">
+          <div className="rounded-xl bg-white px-4 py-3 ring-1 ring-mist-300">
             <p className="font-display text-lg font-semibold">{item.name}</p>
-            {item.description && <p className="text-[15px] text-stone-600">{item.description}</p>}
+            {item.description && <p className="text-[15px] text-slate-600">{item.description}</p>}
           </div>
         </div>
 
@@ -157,15 +157,15 @@ export default function SignupModal({
               onChange={setQuantity}
             />
           ) : (
-            <p className="rounded-xl bg-white px-4 py-3 text-[17px] ring-1 ring-cream-300">{formatAmount(1, item.unit)}</p>
+            <p className="rounded-xl bg-white px-4 py-3 text-[17px] ring-1 ring-mist-300">{formatAmount(1, item.unit)}</p>
           )}
-          {max > 1 && <p className="mt-1.5 text-sm text-stone-500">{max} still needed — bring as many as you&apos;re able.</p>}
+          {max > 1 && <p className="mt-1.5 text-sm text-slate-500">{max} still needed — bring as many as you&apos;re able.</p>}
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label className="m-label" htmlFor="signup-phone">
-              Phone Number <span className="font-normal text-stone-500">(optional)</span>
+              Phone Number <span className="font-normal text-slate-500">(optional)</span>
             </label>
             <input
               id="signup-phone"
@@ -180,7 +180,7 @@ export default function SignupModal({
           </div>
           <div>
             <label className="m-label" htmlFor="signup-email">
-              Email Address <span className="font-normal text-stone-500">(optional)</span>
+              Email Address <span className="font-normal text-slate-500">(optional)</span>
             </label>
             <input
               id="signup-email"
@@ -194,11 +194,11 @@ export default function SignupModal({
             />
           </div>
         </div>
-        <p className="-mt-2 text-sm text-stone-500">Only the family can see your phone number and email.</p>
+        <p className="-mt-2 text-sm text-slate-500">Only the family can see your phone number and email.</p>
 
         <div>
           <label className="m-label" htmlFor="signup-note">
-            Note <span className="font-normal text-stone-500">(optional)</span>
+            Note <span className="font-normal text-slate-500">(optional)</span>
           </label>
           <textarea
             id="signup-note"
@@ -210,10 +210,10 @@ export default function SignupModal({
           />
         </div>
 
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-white p-4 ring-1 ring-cream-300">
+        <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-white p-4 ring-1 ring-mist-300">
           <input
             type="checkbox"
-            className="mt-0.5 h-6 w-6 shrink-0 accent-sage-700"
+            className="mt-0.5 h-6 w-6 shrink-0 accent-navy-700"
             checked={acknowledged}
             onChange={(e) => setAcknowledged(e.target.checked)}
           />

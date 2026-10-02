@@ -7,11 +7,12 @@
 }
 
 body {
-  @apply bg-cream text-charcoal;
+  @apply bg-mist text-charcoal;
 }
 
 /* ---------------------------------------------------------------------
- * Celebration of Life component classes ("m" = memorial). Sized for phones
+ * Celebration of Life component classes ("m" = memorial): navy, light
+ * blue, white and gold. Sized for phones
  * and older eyes first: 17px base text, 52px+ touch targets. Inside
  * @layer components so one-off utilities (bg-*, min-h-*) on an element
  * can still override them.
@@ -19,11 +20,11 @@ body {
 
 @layer components {
   .m-page {
-    @apply min-h-screen bg-cream text-[17px] leading-relaxed text-charcoal antialiased;
+    @apply min-h-screen bg-mist text-[17px] leading-relaxed text-charcoal antialiased;
   }
 
   .m-card {
-    @apply rounded-3xl border border-cream-300 bg-white shadow-[0_2px_14px_rgba(70,58,35,0.06)];
+    @apply rounded-3xl border border-gold-400/40 bg-white shadow-[0_4px_20px_rgba(19,40,75,0.08)];
   }
 
   .m-btn {
@@ -31,7 +32,7 @@ body {
   }
 
   .m-btn-primary {
-    @apply m-btn bg-sage-700 text-white hover:bg-sage-800;
+    @apply m-btn bg-gradient-to-b from-navy-600 to-navy-800 text-white shadow-[0_6px_18px_rgba(19,40,75,0.25)] ring-1 ring-gold-400/70 hover:from-navy-700 hover:to-navy-800;
   }
 
   .m-btn-gold {
@@ -39,11 +40,11 @@ body {
   }
 
   .m-btn-outline {
-    @apply m-btn border-2 border-sage-700 bg-white text-sage-800 hover:bg-sage-50;
+    @apply m-btn border-2 border-navy-700 bg-white text-navy-800 ring-1 ring-gold-400/50 hover:bg-navy-50;
   }
 
   .m-btn-quiet {
-    @apply m-btn bg-cream-200 text-charcoal hover:bg-cream-300;
+    @apply m-btn bg-mist-200 text-charcoal hover:bg-mist-300;
   }
 
   .m-btn-danger {
@@ -51,7 +52,7 @@ body {
   }
 
   .m-input {
-    @apply min-h-[52px] w-full rounded-xl border border-cream-400 bg-white px-4 py-3 text-[17px] text-charcoal placeholder:text-stone-400 focus:border-sage-600 focus:outline-none focus:ring-2 focus:ring-sage-200;
+    @apply min-h-[52px] w-full rounded-xl border border-mist-400 bg-white px-4 py-3 text-[17px] text-charcoal placeholder:text-slate-400 focus:border-navy-600 focus:outline-none focus:ring-2 focus:ring-navy-200;
   }
 
   .m-label {
@@ -59,7 +60,7 @@ body {
   }
 
   .m-eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold-700;
+    @apply text-xs font-semibold uppercase tracking-[0.3em] text-navy-700;
   }
 
   .m-chip {
@@ -68,7 +69,7 @@ body {
 
   /* Admin-side density: same palette, normal-size controls. */
   .m-admin-input {
-    @apply w-full rounded-lg border border-cream-400 bg-white px-3 py-2 text-[15px] text-charcoal focus:border-sage-600 focus:outline-none focus:ring-2 focus:ring-sage-200;
+    @apply w-full rounded-lg border border-mist-400 bg-white px-3 py-2 text-[15px] text-charcoal focus:border-navy-600 focus:outline-none focus:ring-2 focus:ring-navy-200;
   }
 
   .m-admin-btn {

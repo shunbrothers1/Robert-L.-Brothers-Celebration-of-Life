@@ -10,7 +10,7 @@ export default async function AdminsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-3xl font-semibold">Family admins</h1>
-        <p className="mt-1 max-w-2xl text-stone-600">
+        <p className="mt-1 max-w-2xl text-slate-600">
           Admins can see contributor contact details and change everything about every event. Each person needs a login
           first: create it in Supabase under <strong>Authentication → Users → Add user</strong>, then approve their email
           here.
