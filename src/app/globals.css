@@ -103,3 +103,33 @@ input[type="date"].m-admin-input {
 input[type="date"].m-input {
   min-height: 52px;
 }
+
+/* Memorial portrait height (see MemorialHeader). The rest of the hero —
+ * eyebrow, name, date, message card, and the food-list button — needs
+ * about 495px on a phone, so the photo gets whatever is left of the
+ * visible screen (svh = with browser toolbars showing), within 120–240px.
+ * Result: the button is on the first screen on standard and large
+ * iPhones; the photo is just smaller on shorter screens. */
+.m-portrait {
+  --m-ph: clamp(120px, calc(100vh - 507px), 240px);
+  --m-ph: clamp(120px, calc(100svh - 507px), 240px);
+}
+.m-portrait-photo {
+  height: var(--m-ph);
+}
+/* Lily clusters scale with the photo so they only hug the lower corners. */
+.m-portrait-lily {
+  position: absolute;
+  bottom: calc(var(--m-ph) * -0.05);
+  width: calc(var(--m-ph) * 0.52);
+  pointer-events: none;
+  user-select: none;
+}
+.m-portrait-lily-left {
+  left: calc(var(--m-ph) * -0.42);
+}
+.m-portrait-lily-right {
+  right: calc(var(--m-ph) * -0.42);
+  transform: scaleX(-1);
+}
+

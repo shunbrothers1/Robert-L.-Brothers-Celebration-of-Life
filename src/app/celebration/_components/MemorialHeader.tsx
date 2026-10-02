@@ -23,30 +23,29 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
   const date = formatLongDate(event.event_date);
 
   return (
-    <header className="relative px-4 pb-4 pt-4 text-center">
+    <header className="relative px-4 pb-3 pt-3 text-center">
       <p className="m-eyebrow text-[11px] text-white">{event.event_name}</p>
-      <Flourish className="mt-1.5" />
+      <Flourish className="mt-1" />
 
       {event.photo_url && (
-        // Arched frame: outer gold line, wide cream band, inner gold line.
-        // The frame has a fixed shape; the WHOLE photo is fitted inside it
-        // (object-contain, centered side to side and resting on the bottom so
-        // spare space falls into the arch) on navy, never zoomed or cropped to
-        // fill. Lily clusters are absolutely positioned at the lower sides
-        // so they overlap the frame without adding height.
-        <div className="relative mx-auto mt-2.5 w-[53vw] max-w-[220px]">
+        // Arched frame that takes the PHOTO's shape: the photo's height is
+        // set (it shrinks on shorter screens so the message and the
+        // food-list button still fit on the first screen) and its width
+        // follows its natural proportions, so the whole photo fills the
+        // frame with nothing zoomed or cropped — only the arch rounds off
+        // the top corners. Outer gold line, cream band, inner gold line.
+        // Lily clusters are absolutely positioned (they add no height).
+        <div className="m-portrait relative mx-auto mt-2 w-fit">
           <div className="rounded-t-[999px] bg-gradient-to-b from-gold-100 via-gold-400 to-gold-600 p-[2px] shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
-            <div className="rounded-t-[999px] bg-ivory p-[7px]">
+            <div className="rounded-t-[999px] bg-ivory p-[6px]">
               <div className="rounded-t-[999px] bg-gradient-to-b from-gold-400 to-gold-600 p-[1.5px]">
-                <div className="aspect-[4/5] overflow-hidden rounded-t-[999px] bg-[radial-gradient(ellipse_at_center,_#1d3a6b_0%,_#0b1f3a_80%)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
-                  <img
-                    src={event.photo_url}
-                    alt={`Photo of ${event.person_name}`}
-                    className="h-full w-full object-contain object-bottom"
-                    fetchPriority="high"
-                  />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
+                <img
+                  src={event.photo_url}
+                  alt={`Photo of ${event.person_name}`}
+                  className="m-portrait-photo block w-auto max-w-[68vw] rounded-t-[999px] object-cover"
+                  fetchPriority="high"
+                />
               </div>
             </div>
           </div>
@@ -55,29 +54,29 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
             src="/art/lily-cluster.png"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-3 -left-[30%] w-[46%] select-none"
+            className="m-portrait-lily m-portrait-lily-left"
           />
           {/* eslint-disable-next-line @next/next/no-img-element -- static decoration */}
           <img
             src="/art/lily-cluster.png"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-3 -right-[30%] w-[46%] -scale-x-100 select-none"
+            className="m-portrait-lily m-portrait-lily-right"
           />
         </div>
       )}
 
-      <h1 className="relative mx-auto mt-3 max-w-2xl font-display text-[clamp(1.55rem,7.4vw,3rem)] font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
+      <h1 className="relative mx-auto mt-2.5 max-w-2xl font-display text-[clamp(1.55rem,7.4vw,3rem)] font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]">
         {event.person_name}
       </h1>
       {lifeDates && <p className="mt-0.5 font-display text-lg italic text-gold-400">{lifeDates}</p>}
 
-      <div className="mt-2">
+      <div className="mt-1.5">
         <Ornament />
       </div>
 
       {date && (
-        <div className="mt-1.5">
+        <div className="mt-1">
           <p className="text-[11px] font-semibold uppercase leading-4 tracking-[0.25em] text-gold-400">Date</p>
           <p className="font-display text-[19px] leading-7 text-white">{date}</p>
         </div>

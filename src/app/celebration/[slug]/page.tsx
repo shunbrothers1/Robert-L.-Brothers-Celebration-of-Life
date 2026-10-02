@@ -51,19 +51,19 @@ export default async function CelebrationPage({ params }: Props) {
         <HeroArt artworkUrl={event.background_image_url} />
         <MemorialHeader event={event} />
 
-        <div className="mx-auto max-w-2xl px-4">
+        <div className="mx-auto max-w-2xl px-3 sm:px-4">
           {event.welcome_message && (
-            <div className="m-card border-gold-400/80 bg-ivory px-5 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:p-8">
-              <Flourish />
-              <p className="mb-0.5 mt-2.5 whitespace-pre-line text-center font-display text-[16px] leading-[1.5] text-charcoal sm:my-5 sm:text-[1.2rem]">
+            <div className="m-card border-gold-400/80 bg-ivory px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:p-8">
+              {/* Ornaments only on wider screens, to keep the phone hero to one screen. */}
+              <Flourish className="hidden sm:flex" />
+              <p className="my-0 whitespace-pre-line text-center font-display text-[16px] leading-[1.5] text-charcoal sm:my-5 sm:text-[1.2rem]">
                 {event.welcome_message}
               </p>
-              {/* Second ornament only on wider screens, to keep the phone hero compact. */}
               <Flourish className="hidden sm:flex" />
             </div>
           )}
 
-          <div className="mt-4 text-center">
+          <div className="mt-3 text-center">
             <a href="#food-list" className="m-btn-hero min-h-[60px] w-full whitespace-nowrap px-5 font-display text-[17px] tracking-[0.04em] sm:w-auto sm:px-10 sm:text-lg sm:tracking-[0.08em]">
               <svg width="20" height="22" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.8" className="shrink-0 text-gold-400" aria-hidden="true">
                 <path d="M4 1v7a2.5 2.5 0 0 0 5 0V1M6.5 1v20M15 21V1c-2.5 1.5-3.5 4-3.5 7v5H15" strokeLinecap="round" strokeLinejoin="round" />
