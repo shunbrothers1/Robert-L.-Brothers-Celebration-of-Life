@@ -10,12 +10,15 @@ export const metadata = { title: "Celebration of Life", robots: { index: false, 
  * published (the usual case), otherwise lists the published ones.
  */
 export default async function CelebrationIndex() {
-  const { data } = await createPublicClient()
+  const { data, error } = await createPublicClient()
     .from("memorial_events")
     .select("slug, person_name, event_name")
     .eq("is_published", true)
     .order("created_at", { ascending: false })
     .limit(20);
+  // Surface a misconfigured Supabase connection in the logs instead of
+  // silently showing "page not found".
+  if (error) throw new Error(`Loading events failed: ${error.message}`);
   const events = (data ?? []) as { slug: string; person_name: string; event_name: string }[];
   if (events.length === 0) notFound();
   if (events.length === 1) redirect(`/celebration/${events[0].slug}`);
