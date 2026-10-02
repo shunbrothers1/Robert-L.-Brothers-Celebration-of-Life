@@ -23,6 +23,17 @@ body {
     @apply min-h-screen bg-mist text-[17px] leading-relaxed text-charcoal antialiased;
   }
 
+  /* Guest-facing pages: deep navy, like the funeral program. Cards on it
+   * stay white/cream with dark text. Admin pages keep the light .m-page. */
+  .m-page-public {
+    @apply min-h-screen bg-navy-900 text-[17px] leading-relaxed text-charcoal antialiased;
+  }
+
+  /* Outlined gold-on-navy call to action, for use on the dark page. */
+  .m-btn-hero {
+    @apply m-btn border-2 border-gold-400 bg-navy-950/40 text-white shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:bg-navy-800;
+  }
+
   .m-card {
     @apply rounded-3xl border border-gold-400/40 bg-white shadow-[0_4px_20px_rgba(19,40,75,0.08)];
   }

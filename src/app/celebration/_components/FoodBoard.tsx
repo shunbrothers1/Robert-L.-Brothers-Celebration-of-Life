@@ -71,19 +71,19 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
     <section id="food-list" className="scroll-mt-4" aria-labelledby="food-list-title">
       <div className="mx-auto max-w-3xl px-4">
         <div className="text-center">
-          <p className="m-eyebrow">For the Repast</p>
-          <h2 id="food-list-title" className="mt-2 font-display text-3xl font-semibold sm:text-4xl">
+          <p className="m-eyebrow text-gold-400">For the Repast</p>
+          <h2 id="food-list-title" className="mt-2 font-display text-3xl font-semibold text-white sm:text-4xl">
             Food &amp; Supply List
           </h2>
           {items.length > 0 && (
-            <p className="mt-2 text-[16px] text-slate-600">
+            <p className="mt-2 text-[16px] text-white/80">
               {totals.covered === 0
                 ? `${totals.total} items on the list`
                 : `${totals.covered} of ${totals.total} items covered — thank you!`}
             </p>
           )}
           {signupsOpen && deadline && (
-            <p className="mt-2 text-[16px] font-semibold text-gold-700">Please sign up by {deadline}.</p>
+            <p className="mt-2 text-[16px] font-semibold text-gold-400">Please sign up by {deadline}.</p>
           )}
         </div>
 
@@ -120,7 +120,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
       </div>
 
       {/* Filters — stick to the top while scrolling the list. */}
-      <div className="sticky top-0 z-30 mt-6 border-y border-mist-300 bg-mist/95 backdrop-blur">
+      <div className="sticky top-0 z-30 mt-6 border-y border-gold-400/30 bg-navy-950/95 backdrop-blur">
         <div className="mx-auto max-w-3xl px-4 py-3">
           <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="group" aria-label="Filter by category">
             {[{ id: ALL, short_name: "ALL" }, ...visibleCategories].map((c) => {
@@ -131,7 +131,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setFilter(c.id)}
-                  className={`m-chip ${active ? "border-navy-700 bg-navy-700 text-white" : "border-mist-400 bg-white text-charcoal hover:border-navy-500"}`}
+                  className={`m-chip ${active ? "border-gold-400 bg-gold-400 text-navy-950" : "border-white/35 bg-white/5 text-white hover:border-gold-400"}`}
                 >
                   {c.short_name.toUpperCase()}
                 </button>
@@ -142,7 +142,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
             type="button"
             aria-pressed={onlyNeeded}
             onClick={() => setOnlyNeeded((v) => !v)}
-            className={`m-chip mt-2 w-full justify-center gap-2 ${onlyNeeded ? "border-gold-700 bg-gold-700 text-white" : "border-gold-500 bg-white text-gold-700"}`}
+            className={`m-chip mt-2 w-full justify-center gap-2 ${onlyNeeded ? "border-gold-400 bg-gold-400 text-navy-950" : "border-gold-400 bg-transparent text-gold-400"}`}
           >
             <span aria-hidden="true">{onlyNeeded ? "✓" : "○"}</span>
             SHOW WHAT&apos;S STILL NEEDED
@@ -153,10 +153,10 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
       <div className="mx-auto max-w-3xl space-y-10 px-4 pt-8">
         {mostNeeded.length > 0 && (
           <div>
-            <h3 className="flex items-center gap-2 font-display text-2xl font-semibold text-gold-700">
+            <h3 className="flex items-center gap-2 font-display text-2xl font-semibold text-gold-400">
               <span aria-hidden="true">★</span> Most Needed
             </h3>
-            <p className="mt-1 text-[16px] text-slate-600">If you can, please consider one of these first.</p>
+            <p className="mt-1 text-[16px] text-white/75">If you can, please consider one of these first.</p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {mostNeeded.map((item) => (
                 <ItemCard key={item.id} item={item} signupsOpen={signupsOpen} onSignUp={setSelected} />
@@ -167,7 +167,7 @@ export default function FoodBoard({ data }: { data: PublicEvent }) {
 
         {groups.map(({ category, items: groupItems }) => (
           <div key={category.id}>
-            <h3 className="border-b border-mist-300 pb-2 font-display text-2xl font-semibold">{category.name}</h3>
+            <h3 className="border-b border-gold-400/30 pb-2 font-display text-2xl font-semibold text-white">{category.name}</h3>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {groupItems.map((item) => (
                 <ItemCard key={item.id} item={item} signupsOpen={signupsOpen} onSignUp={setSelected} />

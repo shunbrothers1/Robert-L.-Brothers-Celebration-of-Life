@@ -1,7 +1,8 @@
 # Celebration of Life — Repast Food & Supply Sign-Up
 
-A warm, mobile-first website for coordinating food and supplies for a funeral repast, styled in navy
-blue, light blue, white, and gold. Family and
+A warm, mobile-first website for coordinating food and supplies for a funeral repast, styled like a
+funeral program: deep navy with lily-and-blue-flower artwork, white lettering, cream message card, and
+gold accents. Family and
 friends open a texted link, see what's still needed, and sign up to bring an item in about a minute
 — no account needed. Every item is capped at the quantity the family asks for, enforced in the
 database, so the repast doesn't end up with five pans of macaroni and no drinks.
@@ -66,8 +67,9 @@ e2e/                        browser end-to-end tests
    with the Supabase CLI):
    - `0001_initial_schema.sql` — tables, security rules, database functions, and the
      `memorial-photos` storage bucket.
-   - `0002_background_artwork.sql` — the optional **Background artwork** photo shown behind the page
-     header. Until it's run, the site works normally and that setting simply stays hidden.
+   - `0002_background_artwork.sql` — one column for the optional **Background artwork** upload, which
+     replaces the built-in lily artwork behind the page header (use artwork without lettering). Until
+     it's run, the site works normally with the built-in artwork and the setting stays hidden.
 3. **Authentication → Sign In / Providers:** turn off **Allow new users to sign up**. Admins are
    created by you (next step), and nobody else needs an account.
 4. **Authentication → URL Configuration:** set **Site URL** to your site's address, for example

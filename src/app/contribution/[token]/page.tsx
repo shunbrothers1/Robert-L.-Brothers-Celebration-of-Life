@@ -16,7 +16,7 @@ export default async function ContributionPage({ params }: { params: Promise<{ t
   const contribution = await loadContributionByToken(token);
   if (!contribution) notFound();
   return (
-    <main className="m-page px-4 py-10">
+    <main className="m-page-public px-4 py-10">
       <ManageContribution token={token} initial={contribution} />
     </main>
   );

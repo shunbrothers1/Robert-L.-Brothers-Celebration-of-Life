@@ -69,9 +69,9 @@ export default function ManageContribution({ token, initial }: { token: string; 
   return (
     <div className="mx-auto max-w-lg space-y-6">
       <div className="text-center">
-        <p className="m-eyebrow">{c.event.event_name}</p>
-        <h1 className="mt-2 font-display text-3xl font-semibold">{c.event.person_name}</h1>
-        {date && <p className="mt-1 text-slate-600">{date}</p>}
+        <p className="m-eyebrow text-gold-400">{c.event.event_name}</p>
+        <h1 className="mt-2 font-display text-3xl font-semibold text-white">{c.event.person_name}</h1>
+        {date && <p className="mt-1 text-white/80">{date}</p>}
       </div>
 
       <div className="m-card space-y-4 p-6">

@@ -24,7 +24,7 @@ export default async function CelebrationIndex() {
   if (events.length === 1) redirect(`/celebration/${events[0].slug}`);
 
   return (
-    <main className="m-page px-4 py-16">
+    <main className="m-page-public px-4 py-16">
       <div className="mx-auto max-w-lg space-y-4">
         {events.map((e) => (
           <Link key={e.slug} href={`/celebration/${e.slug}`} className="m-card block p-6 text-center">

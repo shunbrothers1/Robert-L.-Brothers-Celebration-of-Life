@@ -15,8 +15,8 @@ function Ornament() {
 function Detail({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-700">{label}</dt>
-      <dd className="mt-1 font-display text-[19px] text-charcoal">{children}</dd>
+      <dt className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">{label}</dt>
+      <dd className="mt-1 font-display text-[19px] text-white">{children}</dd>
     </div>
   );
 }
@@ -27,36 +27,29 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
   const hasLocation = event.repast_location_name || event.repast_address;
 
   return (
-    <header className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_top,_#ffffff_0%,_#e3ecf7_55%,_#f2f6fb_100%)] px-4 pb-12 pt-12 text-center">
-      {event.background_image_url && (
-        <>
-          {/* Family-supplied artwork (e.g. the program's florals), softened so text stays readable. */}
-          {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
-          <img src={event.background_image_url} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.88)_0%,_rgba(242,246,251,0.72)_60%,_rgba(242,246,251,0.35)_100%)]" />
-        </>
-      )}
-      <p className="m-eyebrow">{event.event_name}</p>
+    // Sits on the dark hero (see HeroArt), so text is light and labels gold.
+    <header className="relative px-4 pb-10 pt-12 text-center">
+      <p className="m-eyebrow text-white">{event.event_name}</p>
       <Flourish className="mt-3" />
 
       {event.photo_url && (
         <div className="mx-auto mt-6 w-44 sm:w-52">
-          <div className="rounded-t-full border border-gold-400/60 p-2">
+          <div className="rounded-t-full border border-gold-400/70 p-2">
             {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
             <img
               src={event.photo_url}
               alt={`Photo of ${event.person_name}`}
-              className="aspect-[4/5] w-full rounded-t-full object-cover shadow-[0_8px_30px_rgba(19,40,75,0.22)]"
+              className="aspect-[4/5] w-full rounded-t-full object-cover shadow-[0_10px_34px_rgba(0,0,0,0.45)]"
               fetchPriority="high"
             />
           </div>
         </div>
       )}
 
-      <h1 className="mx-auto mt-6 max-w-2xl font-display text-[2.4rem] font-semibold leading-tight text-charcoal sm:text-5xl">
+      <h1 className="mx-auto mt-6 max-w-2xl font-display text-[2.4rem] font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-5xl">
         {event.person_name}
       </h1>
-      {lifeDates && <p className="mt-2 font-display text-xl italic text-gold-700">{lifeDates}</p>}
+      {lifeDates && <p className="mt-2 font-display text-xl italic text-gold-400">{lifeDates}</p>}
 
       <div className="mt-6">
         <Ornament />
@@ -71,7 +64,7 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
             {event.repast_address && (
               <a
                 href={mapsUrl(event.repast_address)}
-                className="text-navy-700 underline underline-offset-4"
+                className="text-gold-100 underline decoration-gold-400/70 underline-offset-4"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -25,7 +25,11 @@ const config: Config = {
           600: "#26467a",
           700: "#1b3561",
           800: "#13284b",
+          900: "#0b1f3a",
+          950: "#071730",
         },
+        // Warm cream for cards on the dark page.
+        ivory: "#f9f6f1",
         gold: {
           DEFAULT: "#c6a35d",
           50: "#f7f0dd",
