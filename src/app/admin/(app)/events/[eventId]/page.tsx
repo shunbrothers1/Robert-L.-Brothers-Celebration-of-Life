@@ -7,11 +7,12 @@ import { formatAmount, formatDateTime, itemProgress } from "@/lib/celebration/fo
 
 export const metadata = { title: "Overview" };
 
-function Stat({ label, value, tone = "" }: { label: string; value: number | string; tone?: string }) {
+function Stat({ label, value, hint, tone = "" }: { label: string; value: number | string; hint: string; tone?: string }) {
   return (
     <div className="m-card p-4">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
       <p className={`mt-1 font-display text-3xl font-semibold ${tone}`}>{value}</p>
+      <p className="mt-1 text-xs leading-snug text-slate-500">{hint}</p>
     </div>
   );
 }
@@ -46,15 +47,38 @@ export default async function OverviewPage({ params }: { params: Promise<{ event
         >
           <div className="h-full rounded-full bg-navy-600" style={{ width: `${stats.percentCovered}%` }} />
         </div>
+        <p className="mt-2 text-xs text-slate-500">How much of the total amount needed has been signed up for so far.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        <Stat label="Total Items Needed" value={stats.totalItemsNeeded} />
-        <Stat label="Contributions Claimed" value={stats.totalClaimed} />
-        <Stat label="Items Still Needed" value={stats.itemsStillNeeded} tone="text-gold-700" />
-        <Stat label="Items Fully Covered" value={stats.itemsCovered} tone="text-navy-700" />
-        <Stat label="Pending Suggestions" value={stats.pendingSuggestions} />
-        <Stat label="Total Contributors" value={stats.totalContributors} />
+        <Stat
+          label="Total Items Needed"
+          value={stats.totalItemsNeeded}
+          hint="Every quantity on the list added up — all the trays, cases, bags, etc."
+        />
+        <Stat
+          label="Contributions Claimed"
+          value={stats.totalClaimed}
+          hint="How much of that total people have signed up to bring so far."
+        />
+        <Stat
+          label="Items Still Needed"
+          value={stats.itemsStillNeeded}
+          tone="text-gold-700"
+          hint="Different dishes and supplies that still need someone (e.g. Ham, Ice)."
+        />
+        <Stat
+          label="Items Fully Covered"
+          value={stats.itemsCovered}
+          tone="text-navy-700"
+          hint="Dishes and supplies that have everything they need."
+        />
+        <Stat
+          label="Pending Suggestions"
+          value={stats.pendingSuggestions}
+          hint="“Bring something else” offers waiting for your approval."
+        />
+        <Stat label="Total Contributors" value={stats.totalContributors} hint="Different people who have signed up." />
       </div>
 
       {!event.is_published && (
