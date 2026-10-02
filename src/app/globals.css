@@ -75,3 +75,19 @@ body {
     @apply inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg px-3.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
   }
 }
+
+/* iOS Safari gives native date inputs an intrinsic minimum width that
+ * ignores w-full, so they overflow narrow cards. Dropping the native
+ * appearance lets them size like every other field. */
+input[type="date"].m-input,
+input[type="date"].m-admin-input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 2.75rem;
+}
+input[type="date"].m-input {
+  min-height: 52px;
+}
