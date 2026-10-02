@@ -107,12 +107,14 @@ input[type="date"].m-input {
 /* Memorial portrait height (see MemorialHeader). The rest of the hero —
  * eyebrow, name, date, message card, and the food-list button — needs
  * about 495px on a phone, so the photo gets whatever is left of the
- * visible screen (svh = with browser toolbars showing), within 120–240px.
- * Result: the button is on the first screen on standard and large
- * iPhones; the photo is just smaller on shorter screens. */
+ * visible screen (svh = with browser toolbars showing), within 80–240px.
+ * --m-extra (set inline by MemorialHeader) adds room for optional pieces:
+ * the life-dates line and the "Make a Monetary Gift" button. Result: the
+ * buttons are on the first screen on standard and large phones; the photo
+ * is just smaller on shorter screens. */
 .m-portrait {
-  --m-ph: clamp(120px, calc(100vh - 507px), 240px);
-  --m-ph: clamp(120px, calc(100svh - 507px), 240px);
+  --m-ph: clamp(80px, calc(100vh - 507px - var(--m-extra, 0px)), 240px);
+  --m-ph: clamp(80px, calc(100svh - 507px - var(--m-extra, 0px)), 240px);
 }
 .m-portrait-photo {
   height: var(--m-ph);

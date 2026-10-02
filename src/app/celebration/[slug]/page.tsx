@@ -7,6 +7,8 @@ import MemorialSection from "../_components/MemorialSection";
 import Flourish from "../_components/Flourish";
 import HeroArt from "../_components/HeroArt";
 import EventDetails from "../_components/EventDetails";
+import GiftButton from "../_components/GiftButton";
+import { givingIsAvailable } from "@/lib/celebration/giving";
 import { loadPublicEvent } from "@/lib/celebration/load";
 import { shareMessage } from "@/lib/celebration/format";
 
@@ -38,6 +40,7 @@ export default async function CelebrationPage({ params }: Props) {
   if (!loaded) notFound();
   const { data, preview } = loaded;
   const { event } = data;
+  const hasGiving = givingIsAvailable(event.giving);
 
   return (
     <main className="m-page-public pb-16">
@@ -49,7 +52,7 @@ export default async function CelebrationPage({ params }: Props) {
 
       <section className="relative isolate overflow-hidden pb-36 sm:pb-24">
         <HeroArt artworkUrl={event.background_image_url} />
-        <MemorialHeader event={event} />
+        <MemorialHeader event={event} hasGiving={hasGiving} />
 
         <div className="mx-auto max-w-2xl px-3 sm:px-4">
           {event.welcome_message && (
@@ -72,6 +75,11 @@ export default async function CelebrationPage({ params }: Props) {
               VIEW FOOD &amp; SUPPLY LIST
               <span aria-hidden="true" className="hidden text-gold-400 sm:inline">›</span>
             </a>
+            {hasGiving && (
+              <div className="mt-2">
+                <GiftButton slug={event.slug} />
+              </div>
+            )}
             <div className="mx-auto mt-4 flex items-center justify-center gap-3 text-gold-400" aria-hidden="true">
               <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold-400" />
               <span className="text-xs">◆</span>
@@ -89,6 +97,21 @@ export default async function CelebrationPage({ params }: Props) {
       <div className="mt-4">
         <FoodBoard data={data} />
       </div>
+
+      {hasGiving && (
+        <div className="mx-auto mt-10 max-w-3xl px-4">
+          <div className="m-card border-gold-400/80 bg-ivory p-6 text-center">
+            <Flourish />
+            <h2 className="mt-3 font-display text-2xl font-semibold text-charcoal">Another Way to Help</h2>
+            <p className="mx-auto mt-2 max-w-md text-[16px] text-slate-600">
+              If cooking or shopping isn&apos;t possible, a monetary gift of any amount also helps the family. Thank you.
+            </p>
+            <a href={`/celebration/${event.slug}/give`} className="m-btn-primary mt-5 w-full font-display tracking-[0.05em] sm:w-auto sm:px-10">
+              MAKE A MONETARY GIFT
+            </a>
+          </div>
+        </div>
+      )}
 
       {data.settings.show_memorial_section && event.memorial && (
         <div className="mt-16">

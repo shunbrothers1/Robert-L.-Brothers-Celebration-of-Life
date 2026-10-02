@@ -47,4 +47,16 @@ await db
   .update({ is_priority: true })
   .eq("event_id", event.id)
   .in("name", ["Fried Chicken", "Cases of Bottled Water", "Ice"]);
+// Monetary gifts (migration 0003) — skipped quietly if not migrated yet.
+const gifts = await db
+  .from("memorial_events")
+  .update({
+    giving_enabled: true,
+    giving_methods: [
+      { type: "cashapp", value: "$BrothersFamily", label: "Brothers Family" },
+      { type: "zelle", value: "family@example.com" },
+    ],
+  })
+  .eq("id", event.id);
+console.log(gifts.error ? "(monetary gifts not set up: migration 0003 not applied)" : "monetary gifts enabled");
 console.log("E2E setup done: /celebration/sample, admin", ADMIN_EMAIL, "outsider", OUTSIDER_EMAIL);

@@ -53,7 +53,7 @@ src/app/api/celebration/    guest API routes (validate, then call the database f
 src/lib/celebration/        types, formatting, errors, data loading, stats, uploads
 src/lib/supabase/           Supabase clients + session refresh for this project
 src/proxy.ts                Next.js proxy (middleware): requires a session for /admin
-supabase/migrations/          0001 schema, 0002 background artwork
+supabase/migrations/          0001 schema, 0002 background artwork, 0003 monetary gifts
 supabase/seed/sample_event.sql                optional demo event
 e2e/                        browser end-to-end tests
 ```
@@ -70,6 +70,11 @@ e2e/                        browser end-to-end tests
    - `0002_background_artwork.sql` — one column for the optional **Background artwork** upload, which
      replaces the built-in lily artwork behind the page header (use artwork without lettering). Until
      it's run, the site works normally with the built-in artwork and the setting stays hidden.
+   - `0003_monetary_gifts.sql` — the optional **Monetary gifts** option (Event Settings → Monetary
+     gifts): a "Make a Monetary Gift" button under the food-list button and at the bottom of the food
+     list, opening `/celebration/[slug]/give` with the family's Cash App / Zelle / Venmo / PayPal /
+     GoFundMe / other links. The site only displays these; no money passes through it. Until it's
+     run, the option is hidden and everything else works normally.
 3. **Authentication → Sign In / Providers:** turn off **Allow new users to sign up**. Admins are
    created by you (next step), and nobody else needs an account.
 4. **Authentication → URL Configuration:** set **Site URL** to your site's address, for example

@@ -23,6 +23,27 @@ check("note under button", await page.getByText("Please select an item that is s
 const noHScroll = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
 check("no horizontal scroll on phone", noHScroll);
 
+// 1b. Both ways to help are on the first screen; gifts page works.
+const giftsOn = (await page.getByRole("link", { name: "MAKE A MONETARY GIFT" }).count()) > 0;
+if (giftsOn) {
+  const vh = page.viewportSize().height;
+  const foodBtn = await page.getByRole("link", { name: "VIEW FOOD & SUPPLY LIST" }).boundingBox();
+  const giftBtn = await page.getByRole("link", { name: "MAKE A MONETARY GIFT" }).first().boundingBox();
+  check("food-list button on first screen", foodBtn.y + foodBtn.height <= vh, `${Math.round(foodBtn.y + foodBtn.height)} <= ${vh}`);
+  check("monetary gift button on first screen", giftBtn.y + giftBtn.height <= vh, `${Math.round(giftBtn.y + giftBtn.height)} <= ${vh}`);
+  check("gift card at bottom of food list", await page.getByRole("heading", { name: "Another Way to Help" }).isVisible());
+  await page.getByRole("link", { name: "MAKE A MONETARY GIFT" }).first().click();
+  await page.waitForURL(/\/give$/);
+  check("gifts page title", await page.getByRole("heading", { name: "Monetary Gifts" }).isVisible());
+  check("Cash App opens the family's cashtag", (await page.getByRole("link", { name: "Open Cash App" }).getAttribute("href")) === "https://cash.app/$BrothersFamily");
+  check("Zelle shows a copy button", await page.getByRole("button", { name: "Copy Zelle info" }).isVisible());
+  await page.screenshot({ path: `${OUT}01b-gifts.png`, fullPage: true });
+  await page.getByRole("link", { name: "RETURN TO FOOD LIST" }).click();
+  await page.waitForURL(/\/celebration\/sample/);
+} else {
+  console.log("(monetary gifts not enabled — skipping gift checks)");
+}
+
 // 2. View list
 await page.getByRole("link", { name: "VIEW FOOD & SUPPLY LIST" }).click();
 await page.waitForTimeout(400);

@@ -18,7 +18,7 @@ function Ornament() {
  * the family's message (the rest of the event details follow the
  * call-to-action, in EventDetails). Sits on the dark hero, so text is light.
  */
-export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
+export default function MemorialHeader({ event, hasGiving = false }: { event: PublicEventInfo; hasGiving?: boolean }) {
   const lifeDates = formatLifeDates(event.birth_date_text, event.passing_date_text);
   const date = formatLongDate(event.event_date);
 
@@ -35,7 +35,11 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
         // frame with nothing zoomed or cropped — only the arch rounds off
         // the top corners. Outer gold line, cream band, inner gold line.
         // Lily clusters are absolutely positioned (they add no height).
-        <div className="m-portrait relative mx-auto mt-2 w-fit">
+        <div
+          className="m-portrait relative mx-auto mt-2 w-fit"
+          // Room the photo gives up for the optional life-dates line and gift button.
+          style={{ "--m-extra": `${(lifeDates ? 30 : 0) + (hasGiving ? 56 : 0)}px` } as React.CSSProperties}
+        >
           <div className="rounded-t-[999px] bg-gradient-to-b from-gold-100 via-gold-400 to-gold-600 p-[2px] shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
             <div className="rounded-t-[999px] bg-ivory p-[6px]">
               <div className="rounded-t-[999px] bg-gradient-to-b from-gold-400 to-gold-600 p-[1.5px]">

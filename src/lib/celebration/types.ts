@@ -1,3 +1,5 @@
+import type { GivingInfo } from "./giving";
+
 // Shapes for the Celebration of Life feature. The public types mirror the
 // JSON returned by the get_public_event / get_contribution_by_token
 // database functions (supabase/migrations/0001_initial_schema.sql),
@@ -20,6 +22,8 @@ export type PublicEventInfo = {
   photo_url: string | null;
   /** Present once migration 0002 has been run. */
   background_image_url?: string | null;
+  /** Monetary gift options (migration 0003); null when off or not set up. */
+  giving?: GivingInfo | null;
   event_date: string | null;
   service_info: string | null;
   repast_time_text: string | null;
@@ -127,6 +131,11 @@ export type MemorialEvent = {
   photo_url: string | null;
   /** Present once migration 0002 has been run. */
   background_image_url?: string | null;
+  /** Present once migration 0003 has been run. */
+  giving_enabled?: boolean;
+  giving_title?: string | null;
+  giving_message?: string | null;
+  giving_methods?: unknown;
   event_date: string | null;
   service_info: string | null;
   repast_time_text: string | null;

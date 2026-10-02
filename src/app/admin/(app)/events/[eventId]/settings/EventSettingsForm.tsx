@@ -6,6 +6,14 @@ import { ErrorNote, useAdminAction } from "../../../_components/useAdminAction";
 import { adminBrowserClient } from "@/lib/celebration/browser";
 import { slugify } from "@/lib/celebration/format";
 import { uploadMemorialPhoto } from "@/lib/celebration/upload";
+import {
+  DEFAULT_GIVING_MESSAGE,
+  DEFAULT_GIVING_TITLE,
+  GIVING_TYPES,
+  normalizeGivingMethods,
+  type GivingMethod,
+  type GivingType,
+} from "@/lib/celebration/giving";
 import type { EventSettings, MemorialEvent } from "@/lib/celebration/types";
 
 const TIMEZONES = [
@@ -122,6 +130,14 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
   const [galleryUploading, setGalleryUploading] = useState(false);
   // The column comes from migration 0002; "select *" includes it once it exists.
   const hasArtworkColumn = "background_image_url" in event;
+  // Monetary gifts come from migration 0003.
+  const hasGivingColumns = "giving_methods" in event;
+  const [giving, setGiving] = useState(() => ({
+    enabled: Boolean(event.giving_enabled),
+    title: event.giving_title ?? "",
+    message: event.giving_message ?? "",
+    methods: normalizeGivingMethods(event.giving_methods),
+  }));
   const [f, setF] = useState<Form>({
     slug: event.slug,
     event_name: event.event_name,
@@ -176,6 +192,14 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
           photo_url: f.photo_url,
           // Only send the artwork column once migration 0002 has added it.
           ...(hasArtworkColumn ? { background_image_url: f.background_image_url ?? null } : {}),
+          ...(hasGivingColumns
+            ? {
+                giving_enabled: giving.enabled,
+                giving_title: giving.title.trim() || null,
+                giving_message: giving.message.trim() || null,
+                giving_methods: normalizeGivingMethods(giving.methods),
+              }
+            : {}),
           event_date: f.event_date || null,
           service_info: f.service_info?.trim() || null,
           repast_time_text: f.repast_time_text?.trim() || null,
@@ -400,6 +424,15 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
         </div>
       </section>
 
+      <GivingSection
+        available={hasGivingColumns}
+        value={giving}
+        onChange={(v) => {
+          setSaved(false);
+          setGiving(v);
+        }}
+      />
+
       <section className="m-card space-y-2 border-red-200 p-5">
         <h2 className="font-display text-lg font-semibold text-red-800">Delete event</h2>
         <p className="text-sm text-slate-600">Permanently removes this event, its food list and every sign-up.</p>
@@ -420,5 +453,143 @@ export default function EventSettingsForm({ event, settings }: { event: Memorial
         </div>
       </div>
     </form>
+  );
+}
+
+type GivingDraft = { enabled: boolean; title: string; message: string; methods: GivingMethod[] };
+
+/** Event Settings → Monetary Gifts: on/off, wording, and up to 8 ways to give. */
+function GivingSection({
+  available,
+  value,
+  onChange,
+}: {
+  available: boolean;
+  value: GivingDraft;
+  onChange: (v: GivingDraft) => void;
+}) {
+  if (!available) {
+    return (
+      <section className="m-card space-y-2 p-5">
+        <h2 className="font-display text-xl font-semibold">Monetary gifts</h2>
+        <p className="rounded-lg bg-mist-200 px-3 py-2 text-sm text-slate-600">
+          To turn this on, run <span className="break-all font-mono">supabase/migrations/0003_monetary_gifts.sql</span> in
+          Supabase&apos;s SQL Editor once, then reload this page.
+        </p>
+      </section>
+    );
+  }
+  const setMethod = (i: number, patch: Partial<GivingMethod>) =>
+    onChange({ ...value, methods: value.methods.map((m, j) => (j === i ? { ...m, ...patch } : m)) });
+
+  return (
+    <section className="m-card space-y-4 p-5">
+      <div>
+        <h2 className="font-display text-xl font-semibold">Monetary gifts</h2>
+        <p className="text-sm text-slate-600">
+          Adds a &ldquo;Make a Monetary Gift&rdquo; button under the food-list button and at the bottom of the food list. Gifts
+          go straight to the accounts you list here — the site never handles money.
+        </p>
+      </div>
+      <label className="flex cursor-pointer items-start justify-between gap-4 rounded-xl bg-mist-100 p-4">
+        <span>
+          <span className="block font-semibold">Show the monetary gift option</span>
+          <span className="block text-sm text-slate-600">Guests only see it when this is on and at least one way to give is filled in.</span>
+        </span>
+        <span className="flex shrink-0 items-center gap-2">
+          <span className={`text-xs font-bold uppercase ${value.enabled ? "text-navy-700" : "text-slate-500"}`}>{value.enabled ? "On" : "Off"}</span>
+          <input
+            type="checkbox"
+            role="switch"
+            className="h-6 w-6 accent-navy-700"
+            checked={value.enabled}
+            onChange={(e) => onChange({ ...value, enabled: e.target.checked })}
+          />
+        </span>
+      </label>
+      <div>
+        <label className="m-label" htmlFor="giving-title">
+          Page title
+        </label>
+        <input
+          id="giving-title"
+          className="m-admin-input"
+          maxLength={80}
+          placeholder={DEFAULT_GIVING_TITLE}
+          value={value.title}
+          onChange={(e) => onChange({ ...value, title: e.target.value })}
+        />
+      </div>
+      <div>
+        <label className="m-label" htmlFor="giving-message">
+          Message
+        </label>
+        <textarea
+          id="giving-message"
+          className="m-admin-input min-h-[110px]"
+          maxLength={1500}
+          placeholder={DEFAULT_GIVING_MESSAGE}
+          value={value.message}
+          onChange={(e) => onChange({ ...value, message: e.target.value })}
+        />
+        <p className="mt-1 text-xs text-slate-500">Leave empty to use the suggested wording shown in gray.</p>
+      </div>
+      <div className="space-y-3">
+        <p className="m-label">Ways to give</p>
+        {value.methods.length === 0 && <p className="text-sm text-slate-500">None yet — add one below.</p>}
+        {value.methods.map((m, i) => {
+          const meta = GIVING_TYPES.find((t) => t.type === m.type) ?? GIVING_TYPES[0];
+          return (
+            <div key={i} className="grid gap-2 rounded-xl bg-mist-100 p-3 sm:grid-cols-[9rem_1fr_1fr_auto]">
+              <select
+                className="m-admin-input"
+                value={m.type}
+                onChange={(e) => setMethod(i, { type: e.target.value as GivingType })}
+                aria-label="Type"
+              >
+                {GIVING_TYPES.map((t) => (
+                  <option key={t.type} value={t.type}>
+                    {t.name}
+                  </option>
+                ))}
+              </select>
+              <input
+                className="m-admin-input"
+                placeholder={meta.placeholder}
+                maxLength={200}
+                value={m.value}
+                onChange={(e) => setMethod(i, { value: e.target.value })}
+                aria-label={meta.hint}
+                title={meta.hint}
+              />
+              <input
+                className="m-admin-input"
+                placeholder="Name shown (optional)"
+                maxLength={80}
+                value={m.label ?? ""}
+                onChange={(e) => setMethod(i, { label: e.target.value })}
+                aria-label="Name shown"
+              />
+              <button
+                type="button"
+                className="m-admin-btn bg-white text-red-700 ring-1 ring-mist-400 hover:bg-red-50"
+                onClick={() => onChange({ ...value, methods: value.methods.filter((_, j) => j !== i) })}
+              >
+                Remove
+              </button>
+            </div>
+          );
+        })}
+        {value.methods.length < 8 && (
+          <button
+            type="button"
+            className="m-admin-btn bg-white ring-1 ring-mist-400 hover:bg-mist-100"
+            onClick={() => onChange({ ...value, methods: [...value.methods, { type: "cashapp", value: "" }] })}
+          >
+            + Add a way to give
+          </button>
+        )}
+      </div>
+    </section>
   );
 }
