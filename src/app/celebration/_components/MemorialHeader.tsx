@@ -33,20 +33,32 @@ export default function MemorialHeader({ event }: { event: PublicEventInfo }) {
       <Flourish className="mt-3" />
 
       {event.photo_url && (
-        <div className="mx-auto mt-6 w-44 sm:w-52">
-          <div className="rounded-t-full border border-gold-400/70 p-2">
-            {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
-            <img
-              src={event.photo_url}
-              alt={`Photo of ${event.person_name}`}
-              className="aspect-[4/5] w-full rounded-t-full object-cover shadow-[0_10px_34px_rgba(0,0,0,0.45)]"
-              fetchPriority="high"
-            />
+        // Arched portrait like a printed program: outer gold line, wide
+        // cream border, inner gold line, with lily clusters at the base.
+        // The photo keeps its own proportions (no fixed crop box); only a
+        // very tall photo is trimmed, from the bottom.
+        <div className="relative mx-auto mt-7 w-[76%] max-w-[340px] pb-2">
+          <div className="rounded-t-[999px] bg-gradient-to-b from-gold-100 via-gold-400 to-gold-600 p-[3px] shadow-[0_14px_40px_rgba(0,0,0,0.5)]">
+            <div className="rounded-t-[999px] bg-ivory p-[10px] sm:p-3">
+              <div className="rounded-t-[999px] bg-gradient-to-b from-gold-400 to-gold-600 p-[2px]">
+                {/* eslint-disable-next-line @next/next/no-img-element -- admin-supplied URL from any host */}
+                <img
+                  src={event.photo_url}
+                  alt={`Photo of ${event.person_name}`}
+                  className="block h-auto max-h-[480px] w-full rounded-t-[999px] bg-navy-800 object-cover object-top"
+                  fetchPriority="high"
+                />
+              </div>
+            </div>
           </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static decoration */}
+          <img src="/art/lily-cluster.png" alt="" aria-hidden="true" className="pointer-events-none absolute -bottom-6 -left-[27%] w-[54%] select-none" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- static decoration */}
+          <img src="/art/lily-cluster.png" alt="" aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-[27%] w-[54%] -scale-x-100 select-none" />
         </div>
       )}
 
-      <h1 className="mx-auto mt-6 max-w-2xl font-display text-[2.4rem] font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-5xl">
+      <h1 className="relative mx-auto mt-6 max-w-2xl font-display text-[2.4rem] font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-5xl">
         {event.person_name}
       </h1>
       {lifeDates && <p className="mt-2 font-display text-xl italic text-gold-400">{lifeDates}</p>}

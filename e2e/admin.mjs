@@ -130,7 +130,7 @@ check("public still hides phone numbers", !pubText.includes("555-"));
 check("memorial section shown", pubText.includes("Celebrating James Robert Brown"));
 check("hidden item not on public page", !(await pubPage.getByRole("heading", { name: "Fish", exact: true }).count()));
 check("new priority item in Most Needed", pubText.includes("Sweet Potato Pie"));
-const imgOk = await pubPage.locator("header img").evaluate((img) => img.complete && img.naturalWidth > 0);
+const imgOk = await pubPage.locator('img[alt^="Photo of"]').evaluate((img) => img.complete && img.naturalWidth > 0);
 check("uploaded photo loads from storage", imgOk);
 await pubPage.screenshot({ path: `${OUT}24-public-after-admin.png`, fullPage: true });
 
